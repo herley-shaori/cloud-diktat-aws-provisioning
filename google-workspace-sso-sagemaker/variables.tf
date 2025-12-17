@@ -9,7 +9,3 @@ variable "organization_id" {
   type        = string
 }
 
-variable "admin_email" {
-  description = "Admin user email for Identity Store"
-  type        = string
-}
