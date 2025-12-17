@@ -70,15 +70,29 @@ resource "aws_ssoadmin_permission_set_inline_policy" "data_scientist_additional"
         Effect = "Allow"
         Action = [
           "sagemaker:List*",
-          "sagemaker:Get*"
+          "sagemaker:Get*",
+          "sagemaker:Describe*",
+          "sagemaker:CreatePresignedDomainUrl"
         ]
         Resource = "*"
       },
       {
-        Sid    = "SSOListAccess"
+        Sid    = "SSOAccess"
         Effect = "Allow"
         Action = [
-          "sso:List*"
+          "sso:List*",
+          "sso:Get*",
+          "sso:Describe*"
+        ]
+        Resource = "*"
+      },
+      {
+        Sid    = "SSODirectoryAccess"
+        Effect = "Allow"
+        Action = [
+          "sso-directory:Describe*",
+          "sso-directory:Search*",
+          "sso-directory:List*"
         ]
         Resource = "*"
       }
