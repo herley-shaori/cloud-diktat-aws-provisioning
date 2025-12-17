@@ -56,7 +56,7 @@ data "aws_identitystore_user" "herley" {
   alternate_identifier {
     unique_attribute {
       attribute_path  = "UserName"
-      attribute_value = "herley"
+      attribute_value = "herley.shaori@gmail.com"
     }
   }
 }
