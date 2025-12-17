@@ -21,33 +21,10 @@ resource "aws_ssoadmin_managed_policy_attachment" "s3_read_only" {
   managed_policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
 
-resource "aws_identitystore_user" "data_scientist" {
-  identity_store_id = data.aws_ssoadmin_instances.this.identity_store_ids[0]
-
-  user_name    = "data-scientist@cloud-diktat.info"
-  display_name = "Data Scientist"
-
-  name {
-    given_name  = "Data"
-    family_name = "Scientist"
-  }
-
-  emails {
-    value   = "data-scientist@cloud-diktat.info"
-    primary = true
-  }
-}
-
 resource "aws_identitystore_group" "data_scientist" {
   identity_store_id = data.aws_ssoadmin_instances.this.identity_store_ids[0]
   display_name      = "DataScientists"
   description       = "Data Scientists group"
-}
-
-resource "aws_identitystore_group_membership" "data_scientist" {
-  identity_store_id = data.aws_ssoadmin_instances.this.identity_store_ids[0]
-  group_id          = aws_identitystore_group.data_scientist.group_id
-  member_id         = aws_identitystore_user.data_scientist.user_id
 }
 
 resource "aws_ssoadmin_account_assignment" "data_scientist_assignment" {
