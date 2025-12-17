@@ -21,22 +21,17 @@ resource "aws_ssoadmin_managed_policy_attachment" "s3_read_only" {
   permission_set_arn = aws_ssoadmin_permission_set.data_scientist.arn
 }
 
-data "aws_identitystore_group" "data_scientist" {
+resource "aws_identitystore_group" "data_scientist" {
   identity_store_id = data.aws_ssoadmin_instances.this.identity_store_ids[0]
-
-  alternate_identifier {
-    unique_attribute {
-      attribute_path  = "DisplayName"
-      attribute_value = "data-scientist@cloud-diktat.info"
-    }
-  }
+  display_name      = "data-scientist@cloud-diktat.info"
+  description       = "Data Scientists group from Google Workspace"
 }
 
 resource "aws_ssoadmin_account_assignment" "data_scientist_assignment" {
   instance_arn       = data.aws_ssoadmin_instances.this.arns[0]
   permission_set_arn = aws_ssoadmin_permission_set.data_scientist.arn
 
-  principal_id   = data.aws_identitystore_group.data_scientist.group_id
+  principal_id   = aws_identitystore_group.data_scientist.group_id
   principal_type = "GROUP"
 
   target_id   = data.aws_caller_identity.current.account_id
