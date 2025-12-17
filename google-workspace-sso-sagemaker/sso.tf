@@ -1,5 +1,7 @@
 data "aws_ssoadmin_instances" "this" {}
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_ssoadmin_permission_set" "data_scientist" {
   name             = "DataScientist"
   description      = "Permission set for Data Scientists with SageMaker and S3 access"
@@ -37,6 +39,6 @@ resource "aws_ssoadmin_account_assignment" "data_scientist_assignment" {
   principal_id   = data.aws_identitystore_group.data_scientist.group_id
   principal_type = "GROUP"
 
-  target_id   = "623127157773" # YOUR AWS ACCOUNT ID
+  target_id   = data.aws_caller_identity.current.account_id
   target_type = "AWS_ACCOUNT"
 }
