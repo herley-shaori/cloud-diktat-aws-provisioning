@@ -60,3 +60,22 @@ resource "aws_ssoadmin_account_assignment" "data_scientist_assignment" {
   target_id   = data.aws_caller_identity.current.account_id
   target_type = "AWS_ACCOUNT"
 }
+
+# Look up Herley user from Google Workspace SCIM provisioning
+data "aws_identitystore_user" "herley" {
+  identity_store_id = data.aws_ssoadmin_instances.this.identity_store_ids[0]
+
+  alternate_identifier {
+    unique_attribute {
+      attribute_path  = "UserName"
+      attribute_value = "herley@cloud-diktat.info"
+    }
+  }
+}
+
+# Add Herley to DataScientists group
+resource "aws_identitystore_group_membership" "herley" {
+  identity_store_id = data.aws_ssoadmin_instances.this.identity_store_ids[0]
+  group_id          = aws_identitystore_group.data_scientist.group_id
+  member_id         = data.aws_identitystore_user.herley.user_id
+}
