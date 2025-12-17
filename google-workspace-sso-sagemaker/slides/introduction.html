@@ -412,8 +412,8 @@
             <div class="card" style="margin-top: 40px;">
                 <h3>What You Will Learn</h3>
                 <p style="color: #94a3b8; line-height: 1.8; margin-top: 15px;">
-                    In this tutorial, we will follow <span class="highlight">Herley</span>, a data scientist who just joined a company that uses Google Workspace.
-                    His team needs access to AWS SageMaker Studio for machine learning work, but the company wants to avoid creating separate AWS credentials.
+                    In this tutorial, we will follow a <span class="highlight">Data Scientist</span> who just joined a company that uses Google Workspace.
+                    The team needs access to AWS SageMaker Studio for machine learning work, but the company wants to avoid creating separate AWS credentials.
                 </p>
                 <p style="color: #94a3b8; line-height: 1.8; margin-top: 15px;">
                     By the end of this tutorial, you will understand how to connect Google Workspace to AWS using Single Sign-On (SSO),
@@ -445,28 +445,28 @@
         <div class="slide-number">1 / 6</div>
     </section>
 
-    <!-- Slide 2: Meet Herley - The Story Begins -->
+    <!-- Slide 2: The Scenario -->
     <section class="slide" id="slide2">
         <div class="slide-content">
-            <h2>Chapter 1: Meet Herley</h2>
-            <p class="subtitle">Every story needs a protagonist</p>
+            <h2>Chapter 1: The Scenario</h2>
+            <p class="subtitle">A common challenge in modern organizations</p>
 
             <div class="persona-card">
                 <div class="persona-avatar">👨‍🔬</div>
                 <div class="persona-info">
-                    <h4>Herley</h4>
-                    <div class="email">herley@cloud-diktat.info</div>
-                    <div class="role">Data Scientist, newly joined at Cloud Diktat</div>
+                    <h4>Data Scientist</h4>
+                    <div class="email">data-scientist@cloud-diktat.info</div>
+                    <div class="role">Newly joined at Cloud Diktat</div>
                 </div>
             </div>
 
             <div class="card">
                 <p style="color: #94a3b8; line-height: 1.8; font-size: 1.1rem;">
-                    It is Herley's first week at Cloud Diktat. He is excited to start building machine learning models,
-                    but there is a problem: <span class="highlight">he cannot access AWS SageMaker Studio</span>.
+                    A new Data Scientist joins Cloud Diktat. They are excited to start building machine learning models,
+                    but there is a problem: <span class="highlight">they cannot access AWS SageMaker Studio</span>.
                 </p>
                 <p style="color: #94a3b8; line-height: 1.8; margin-top: 20px; font-size: 1.1rem;">
-                    The IT team tells him: <em>"We do not create IAM users anymore. You should be able to log in with your Google account."</em>
+                    The IT team tells them: <em>"We do not create IAM users anymore. You should be able to log in with your Google account."</em>
                 </p>
                 <p style="color: #94a3b8; line-height: 1.8; margin-top: 20px; font-size: 1.1rem;">
                     But how does that work? How can a Google Workspace account give access to AWS services?
@@ -496,7 +496,7 @@
                 <div class="card problem-card">
                     <div class="icon">🔑</div>
                     <h3>Multiple Passwords</h3>
-                    <p>Herley already has a Google password. Now he needs another password for AWS?
+                    <p>The Data Scientist already has a Google password. Now they need another password for AWS?
                     Studies show users with multiple passwords often reuse them or write them down, both security risks.</p>
                 </div>
 
@@ -510,7 +510,7 @@
                 <div class="card problem-card">
                     <div class="icon">🐌</div>
                     <h3>Slow Onboarding</h3>
-                    <p>Herley cannot start working until IT manually creates his AWS account.
+                    <p>The Data Scientist cannot start working until IT manually creates their AWS account.
                     This could take days, and multiply that by every new hire across the organization.</p>
                 </div>
 
@@ -549,20 +549,20 @@
                 </p>
             </div>
 
-            <h3 style="text-align: center; margin-bottom: 30px;">How This Helps Herley</h3>
+            <h3 style="text-align: center; margin-bottom: 30px;">How This Helps Data Scientists</h3>
 
             <div class="problem-grid">
                 <div class="card solution-card">
                     <div class="icon">🎯</div>
                     <h3>One Password</h3>
-                    <p>Herley uses his existing Google Workspace credentials. No new password to remember or manage.</p>
+                    <p>The Data Scientist uses their existing Google Workspace credentials. No new password to remember or manage.</p>
                 </div>
 
                 <div class="card solution-card">
                     <div class="icon">⚡</div>
                     <h3>Automatic Provisioning</h3>
-                    <p>Using SCIM (System for Cross-domain Identity Management), when Herley was added to Google Workspace,
-                    his identity was automatically synced to AWS.</p>
+                    <p>Using SCIM (System for Cross-domain Identity Management), when a Data Scientist is added to Google Workspace,
+                    their identity is automatically synced to AWS.</p>
                 </div>
 
                 <div class="card solution-card">
@@ -581,20 +581,20 @@
         <div class="slide-number">4 / 6</div>
     </section>
 
-    <!-- Slide 5: Herley's Journey - Step by Step -->
+    <!-- Slide 5: The Login Flow - Step by Step -->
     <section class="slide" id="slide5">
         <div class="slide-content">
-            <h2>Chapter 4: Herley Logs In</h2>
-            <p class="subtitle">Follow along as Herley accesses SageMaker for the first time</p>
+            <h2>Chapter 4: The Login Flow</h2>
+            <p class="subtitle">Follow along as a Data Scientist accesses SageMaker for the first time</p>
 
             <div class="flow-container">
                 <div class="flow-step">
                     <div class="step-number">1</div>
                     <div class="step-icon">🌐</div>
                     <div class="step-content">
-                        <div class="step-title">Herley opens the AWS access portal</div>
+                        <div class="step-title">Open the AWS access portal</div>
                         <div class="step-description">
-                            IT gave him a URL that looks like <code style="color: #a5b4fc;">https://d-xxxxxxxxxx.awsapps.com/start</code>.
+                            IT provides a URL that looks like <code style="color: #a5b4fc;">https://d-xxxxxxxxxx.awsapps.com/start</code>.
                             This is the <span class="highlight">AWS IAM Identity Center portal</span>, the front door to AWS for SSO users.
                         </div>
                     </div>
@@ -606,7 +606,7 @@
                     <div class="step-content">
                         <div class="step-title">The portal redirects to Google</div>
                         <div class="step-description">
-                            Instead of an AWS login form, Herley sees the familiar Google sign-in page.
+                            Instead of an AWS login form, the Data Scientist sees the familiar Google sign-in page.
                             This happens because AWS is configured to trust Google as the <span class="highlight">Identity Provider (IdP)</span>.
                         </div>
                     </div>
@@ -616,10 +616,10 @@
                     <div class="step-number">3</div>
                     <div class="step-icon">🔐</div>
                     <div class="step-content">
-                        <div class="step-title">Herley authenticates with Google</div>
+                        <div class="step-title">Authenticate with Google</div>
                         <div class="step-description">
-                            He enters <span class="highlight">herley@cloud-diktat.info</span> and his password.
-                            If MFA is enabled (it should be!), he completes that step too. Google verifies his identity.
+                            They enter <span class="highlight">data-scientist@cloud-diktat.info</span> and their password.
+                            If MFA is enabled (it should be!), they complete that step too. Google verifies their identity.
                         </div>
                     </div>
                 </div>
@@ -631,7 +631,7 @@
                         <div class="step-title">Google issues a SAML assertion</div>
                         <div class="step-description">
                             Behind the scenes, Google creates a <span class="highlight">SAML assertion</span>, a digitally signed document
-                            that says "This is Herley, and he belongs to the DataScientists group." This is sent to AWS.
+                            that says "This user belongs to the DataScientists group." This is sent to AWS.
                         </div>
                     </div>
                 </div>
@@ -652,10 +652,10 @@
                     <div class="step-number">6</div>
                     <div class="step-icon">🧠</div>
                     <div class="step-content">
-                        <div class="step-title">Herley launches SageMaker Studio</div>
+                        <div class="step-title">Launch SageMaker Studio</div>
                         <div class="step-description">
-                            Herley clicks into the AWS console, navigates to SageMaker, and sees his personal profile:
-                            <span class="highlight">herley-cloud-diktat</span>. He clicks "Open Studio" and starts working. Total time: under 30 seconds.
+                            The Data Scientist clicks into the AWS console, navigates to SageMaker, and sees their personal profile.
+                            They click "Open Studio" and start working. Total time: under 30 seconds.
                         </div>
                     </div>
                 </div>
@@ -668,7 +668,7 @@
     <section class="slide" id="slide6">
         <div class="slide-content">
             <h2>Chapter 5: What We Learned</h2>
-            <p class="subtitle">Key takeaways from Herley's story</p>
+            <p class="subtitle">Key takeaways from this tutorial</p>
 
             <div class="problem-grid">
                 <div class="card">
@@ -691,7 +691,7 @@
                     <h3>SCIM Provisioning</h3>
                     <p style="color: #94a3b8; line-height: 1.8;">
                         <span class="highlight">SCIM</span> automatically syncs users and groups from Google to AWS.
-                        When Herley was added to Google Workspace, SCIM created his identity in AWS IAM Identity Center.
+                        When a Data Scientist is added to Google Workspace, SCIM creates their identity in AWS IAM Identity Center.
                     </p>
                 </div>
 
@@ -717,7 +717,7 @@
                     vpc-endpoints.tf # VPC endpoints so SageMaker works without internet
                 </div>
                 <p style="color: #c4b5fd; margin-top: 20px; font-size: 1.1rem;">
-                    Herley can now focus on building ML models instead of fighting with access credentials.
+                    Data Scientists can now focus on building ML models instead of fighting with access credentials.
                 </p>
             </div>
         </div>
