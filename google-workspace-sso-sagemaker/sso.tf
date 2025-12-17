@@ -56,3 +56,32 @@ resource "aws_identitystore_group_membership" "herley" {
   group_id          = aws_identitystore_group.data_scientist.group_id
   member_id         = data.aws_identitystore_user.herley.user_id
 }
+
+# Inline policy for additional SageMaker and SSO read permissions
+resource "aws_ssoadmin_permission_set_inline_policy" "data_scientist_additional" {
+  instance_arn       = data.aws_ssoadmin_instances.this.arns[0]
+  permission_set_arn = aws_ssoadmin_permission_set.data_scientist.arn
+
+  inline_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "SageMakerReadAccess"
+        Effect = "Allow"
+        Action = [
+          "sagemaker:List*",
+          "sagemaker:Get*"
+        ]
+        Resource = "*"
+      },
+      {
+        Sid    = "SSOListAccess"
+        Effect = "Allow"
+        Action = [
+          "sso:List*"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
