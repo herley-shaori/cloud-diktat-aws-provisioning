@@ -71,7 +71,7 @@ resource "aws_sagemaker_domain" "data_scientist" {
 # This profile is linked to the SSO user so only herley@cloud-diktat.info can claim it
 resource "aws_sagemaker_user_profile" "herley" {
   domain_id         = aws_sagemaker_domain.data_scientist.id
-  user_profile_name = "herley"
+  user_profile_name = "herley-cloud-diktat"
 
   single_sign_on_user_identifier = "UserName"
   single_sign_on_user_value      = "herley@cloud-diktat.info"
