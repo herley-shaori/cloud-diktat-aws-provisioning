@@ -57,6 +57,13 @@ resource "aws_identitystore_group_membership" "herley" {
   member_id         = data.aws_identitystore_user.herley.user_id
 }
 
+# Assign DataScientists group to SageMaker Studio SSO Application
+resource "aws_ssoadmin_application_assignment" "sagemaker_studio" {
+  application_arn = aws_sagemaker_domain.data_scientist.single_sign_on_application_arn
+  principal_id    = aws_identitystore_group.data_scientist.group_id
+  principal_type  = "GROUP"
+}
+
 # Inline policy for additional SageMaker and SSO read permissions
 resource "aws_ssoadmin_permission_set_inline_policy" "data_scientist_additional" {
   instance_arn       = data.aws_ssoadmin_instances.this.arns[0]
