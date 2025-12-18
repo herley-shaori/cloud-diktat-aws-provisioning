@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Workspace Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4c4 50%, #d4c4b0 100%);
+            color: #4a3728;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            position: relative;
+            border-bottom: 1px solid rgba(74, 55, 40, 0.1);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 90, 43, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(101, 67, 33, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5a2b 0%, #654321 50%, #4a3728 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #654321;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #8b5a2b;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #6b5344;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(139, 90, 43, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(74, 55, 40, 0.15);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 90, 43, 0.15);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(139, 90, 43, 0.3);
+        }
+
+        .flow-step::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(139, 90, 43, 0.4), transparent);
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5a2b 0%, #654321 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4a3728;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #6b5344;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #8b5a2b;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(139, 90, 43, 0.1) 0%, rgba(101, 67, 33, 0.05) 100%);
+            border: 1px solid rgba(139, 90, 43, 0.2);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 0.9rem;
+            color: #8b7355;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(139, 90, 43, 0.3);
+            transition: background 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background: #8b5a2b;
+        }
+
+        .google-box {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #4285f4;
+            border-radius: 16px;
+            padding: 25px 35px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(66, 133, 244, 0.15);
+        }
+
+        .google-box-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #4285f4;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(139, 90, 43, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .pricing-card.recommended {
+            border: 2px solid #8b5a2b;
+            box-shadow: 0 8px 30px rgba(139, 90, 43, 0.2);
+        }
+
+        .pricing-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4a3728;
+            margin-bottom: 10px;
+        }
+
+        .pricing-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #8b5a2b;
+            margin-bottom: 15px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            color: #6b5344;
+            line-height: 2;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            color: #8b5a2b;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .slide {
+                padding: 40px 20px;
+            }
+            .flow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="introduction.html" class="back-link">&#8592; Back to Introduction</a>
+
+    <nav>
+        <a href="#slide1"></a>
+        <a href="#slide2"></a>
+        <a href="#slide3"></a>
+        <a href="#slide4"></a>
+    </nav>
+
+    <!-- Slide 1: Title -->
+    <section class="slide" id="slide1">
+        <div class="slide-content">
+            <h1>Google Workspace Setup Guide</h1>
+            <p class="subtitle">Getting started with Google Workspace for your organization</p>
+
+            <div style="display: flex; justify-content: center; margin: 40px 0;">
+                <div class="google-box">
+                    <div class="google-box-icon">G</div>
+                    <div style="font-weight: 600; font-size: 1.2rem; color: #4a3728;">Google Workspace</div>
+                    <p style="color: #6b5344; margin-top: 10px;">Your organization's productivity suite</p>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p style="color: #6b5344; line-height: 1.8;">
+                    Before configuring SSO to AWS, you need a Google Workspace account.
+                    This guide walks you through the registration process.
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">1 / 4</div>
+    </section>
+
+    <!-- Slide 2: Prerequisites -->
+    <section class="slide" id="slide2">
+        <div class="slide-content">
+            <h2>Prerequisites</h2>
+            <p class="subtitle">What you need before signing up for Google Workspace</p>
+
+            <div class="info-grid">
+                <div class="card info-card">
+                    <div class="icon">&#127760;</div>
+                    <h3>Domain Name</h3>
+                    <p style="color: #6b5344; line-height: 1.6;">
+                        You need a domain name that you own (e.g., yourcompany.com).
+                        Purchase from registrars like Namecheap, GoDaddy, or Google Domains.
+                    </p>
+                </div>
+
+                <div class="card info-card">
+                    <div class="icon">&#128231;</div>
+                    <h3>DNS Access</h3>
+                    <p style="color: #6b5344; line-height: 1.6;">
+                        Access to your domain's DNS settings to verify ownership.
+                        You'll add TXT or CNAME records during setup.
+                    </p>
+                </div>
+
+                <div class="card info-card">
+                    <div class="icon">&#128179;</div>
+                    <h3>Payment Method</h3>
+                    <p style="color: #6b5344; line-height: 1.6;">
+                        Credit card or other payment method for subscription.
+                        Google Workspace offers a 14-day free trial.
+                    </p>
+                </div>
+
+                <div class="card info-card">
+                    <div class="icon">&#128100;</div>
+                    <h3>Admin Contact</h3>
+                    <p style="color: #6b5344; line-height: 1.6;">
+                        Designate who will be the Super Admin.
+                        This person manages all Google Workspace settings.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">2 / 4</div>
+    </section>
+
+    <!-- Slide 3: Registration Steps -->
+    <section class="slide" id="slide3">
+        <div class="slide-content">
+            <h2>Registration Steps</h2>
+            <p class="subtitle">Follow these steps to create your Google Workspace account</p>
+
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">&#127760;</div>
+                    <div class="step-content">
+                        <div class="step-title">Visit Google Workspace</div>
+                        <div class="step-description">
+                            Go to <span class="highlight">workspace.google.com</span> and click "Get Started"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">&#127970;</div>
+                    <div class="step-content">
+                        <div class="step-title">Enter Business Information</div>
+                        <div class="step-description">
+                            Provide your business name, number of employees, and country
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">&#128231;</div>
+                    <div class="step-content">
+                        <div class="step-title">Add Your Domain</div>
+                        <div class="step-description">
+                            Enter your domain name (e.g., <span class="highlight">cloud-diktat.info</span>) or purchase a new one
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">&#128100;</div>
+                    <div class="step-content">
+                        <div class="step-title">Create Admin Account</div>
+                        <div class="step-description">
+                            Set up your first admin user (e.g., <span class="highlight">admin@yourcompany.com</span>)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">&#9989;</div>
+                    <div class="step-content">
+                        <div class="step-title">Verify Domain Ownership</div>
+                        <div class="step-description">
+                            Add a TXT record to your DNS to prove you own the domain
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">6</div>
+                    <div class="step-icon">&#128179;</div>
+                    <div class="step-content">
+                        <div class="step-title">Choose Plan and Payment</div>
+                        <div class="step-description">
+                            Select your subscription plan and enter payment details
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">3 / 4</div>
+    </section>
+
+    <!-- Slide 4: Pricing Plans -->
+    <section class="slide" id="slide4">
+        <div class="slide-content">
+            <h2>Google Workspace Plans</h2>
+            <p class="subtitle">Choose the plan that fits your organization's needs</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 40px;">
+                <div class="pricing-card">
+                    <div class="pricing-title">Business Starter</div>
+                    <div class="pricing-price">$6/user/mo</div>
+                    <ul class="pricing-features">
+                        <li>&#10003; Custom business email</li>
+                        <li>&#10003; 30 GB storage per user</li>
+                        <li>&#10003; 100-participant video meetings</li>
+                        <li>&#10003; Security and management controls</li>
+                        <li>&#10003; Standard support</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card recommended">
+                    <div style="background: #8b5a2b; color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; display: inline-block;">Recommended</div>
+                    <div class="pricing-title">Business Standard</div>
+                    <div class="pricing-price">$12/user/mo</div>
+                    <ul class="pricing-features">
+                        <li>&#10003; Custom business email</li>
+                        <li>&#10003; 2 TB storage per user</li>
+                        <li>&#10003; 150-participant video meetings</li>
+                        <li>&#10003; Recording and attendance tracking</li>
+                        <li>&#10003; Standard support</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-title">Business Plus</div>
+                    <div class="pricing-price">$18/user/mo</div>
+                    <ul class="pricing-features">
+                        <li>&#10003; Custom business email + eDiscovery</li>
+                        <li>&#10003; 5 TB storage per user</li>
+                        <li>&#10003; 500-participant video meetings</li>
+                        <li>&#10003; Enhanced security controls</li>
+                        <li>&#10003; Standard support</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-title">Enterprise</div>
+                    <div class="pricing-price">Contact Sales</div>
+                    <ul class="pricing-features">
+                        <li>&#10003; Custom business email + Vault</li>
+                        <li>&#10003; Unlimited storage</li>
+                        <li>&#10003; 1000-participant video meetings</li>
+                        <li>&#10003; Advanced security and DLP</li>
+                        <li>&#10003; Enhanced support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 40px; text-align: center;">
+                <p style="color: #6b5344;">
+                    <span class="highlight">Note:</span> For SSO integration with AWS, any plan works.
+                    Choose based on storage, meeting, and security needs.
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">4 / 4</div>
+    </section>
+
+    <script>
+        const navLinks = document.querySelectorAll('nav a');
+        const slides = document.querySelectorAll('.slide');
+
+        function updateNav() {
+            let currentSlide = 0;
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2) {
+                    currentSlide = index;
+                }
+            });
+            navLinks.forEach((link, index) => {
+                link.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        window.addEventListener('scroll', updateNav);
+        updateNav();
+    </script>
+</body>
+</html>
