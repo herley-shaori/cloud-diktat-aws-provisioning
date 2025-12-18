@@ -235,41 +235,6 @@
             color: #4285f4;
         }
 
-        .pricing-card {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(139, 90, 43, 0.2);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .pricing-card.recommended {
-            border: 2px solid #8b5a2b;
-            box-shadow: 0 8px 30px rgba(139, 90, 43, 0.2);
-        }
-
-        .pricing-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #4a3728;
-            margin-bottom: 10px;
-        }
-
-        .pricing-price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #8b5a2b;
-            margin-bottom: 15px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-            color: #6b5344;
-            line-height: 2;
-        }
-
         .back-link {
             position: fixed;
             top: 20px;
@@ -315,7 +280,6 @@
         <a href="#slide1"></a>
         <a href="#slide2"></a>
         <a href="#slide3"></a>
-        <a href="#slide4"></a>
     </nav>
 
     <!-- Slide 1: Title -->
@@ -339,7 +303,7 @@
                 </p>
             </div>
         </div>
-        <div class="slide-number">1 / 4</div>
+        <div class="slide-number">1 / 3</div>
     </section>
 
     <!-- Slide 2: Prerequisites -->
@@ -384,9 +348,27 @@
                         This person manages all Google Workspace settings.
                     </p>
                 </div>
+
+                <div class="card info-card">
+                    <div class="icon">&#128187;</div>
+                    <h3>Browser Access</h3>
+                    <p style="color: #6b5344; line-height: 1.6;">
+                        A modern web browser (Chrome, Firefox, Edge, Safari).
+                        Google Workspace is fully web-based, no software installation required.
+                    </p>
+                </div>
+
+                <div class="card info-card">
+                    <div class="icon">&#128222;</div>
+                    <h3>Recovery Phone</h3>
+                    <p style="color: #6b5344; line-height: 1.6;">
+                        A phone number for account recovery and verification.
+                        Required for setting up 2-step verification on admin account.
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="slide-number">2 / 4</div>
+        <div class="slide-number">2 / 3</div>
     </section>
 
     <!-- Slide 3: Registration Steps -->
@@ -463,74 +445,7 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">3 / 4</div>
-    </section>
-
-    <!-- Slide 4: Pricing Plans -->
-    <section class="slide" id="slide4">
-        <div class="slide-content">
-            <h2>Google Workspace Plans</h2>
-            <p class="subtitle">Choose the plan that fits your organization's needs</p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 40px;">
-                <div class="pricing-card">
-                    <div class="pricing-title">Business Starter</div>
-                    <div class="pricing-price">$6/user/mo</div>
-                    <ul class="pricing-features">
-                        <li>&#10003; Custom business email</li>
-                        <li>&#10003; 30 GB storage per user</li>
-                        <li>&#10003; 100-participant video meetings</li>
-                        <li>&#10003; Security and management controls</li>
-                        <li>&#10003; Standard support</li>
-                    </ul>
-                </div>
-
-                <div class="pricing-card recommended">
-                    <div style="background: #8b5a2b; color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; display: inline-block;">Recommended</div>
-                    <div class="pricing-title">Business Standard</div>
-                    <div class="pricing-price">$12/user/mo</div>
-                    <ul class="pricing-features">
-                        <li>&#10003; Custom business email</li>
-                        <li>&#10003; 2 TB storage per user</li>
-                        <li>&#10003; 150-participant video meetings</li>
-                        <li>&#10003; Recording and attendance tracking</li>
-                        <li>&#10003; Standard support</li>
-                    </ul>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-title">Business Plus</div>
-                    <div class="pricing-price">$18/user/mo</div>
-                    <ul class="pricing-features">
-                        <li>&#10003; Custom business email + eDiscovery</li>
-                        <li>&#10003; 5 TB storage per user</li>
-                        <li>&#10003; 500-participant video meetings</li>
-                        <li>&#10003; Enhanced security controls</li>
-                        <li>&#10003; Standard support</li>
-                    </ul>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-title">Enterprise</div>
-                    <div class="pricing-price">Contact Sales</div>
-                    <ul class="pricing-features">
-                        <li>&#10003; Custom business email + Vault</li>
-                        <li>&#10003; Unlimited storage</li>
-                        <li>&#10003; 1000-participant video meetings</li>
-                        <li>&#10003; Advanced security and DLP</li>
-                        <li>&#10003; Enhanced support</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 40px; text-align: center;">
-                <p style="color: #6b5344;">
-                    <span class="highlight">Note:</span> For SSO integration with AWS, any plan works.
-                    Choose based on storage, meeting, and security needs.
-                </p>
-            </div>
-        </div>
-        <div class="slide-number">4 / 4</div>
+        <div class="slide-number">3 / 3</div>
     </section>
 
     <script>
