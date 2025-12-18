@@ -280,6 +280,7 @@
     <nav>
         <a href="#slide1"></a>
         <a href="#slide2"></a>
+        <a href="#slide3"></a>
     </nav>
 
     <!-- Slide 1: Title -->
@@ -304,7 +305,7 @@
                 </p>
             </div>
         </div>
-        <div class="slide-number">1 / 2</div>
+        <div class="slide-number">1 / 3</div>
     </section>
 
     <!-- Slide 2: What is AWS IAM Identity Center -->
@@ -376,7 +377,75 @@
                 </p>
             </div>
         </div>
-        <div class="slide-number">2 / 2</div>
+        <div class="slide-number">2 / 3</div>
+    </section>
+
+    <!-- Slide 3: Configure Identity Source -->
+    <section class="slide" id="slide3">
+        <div class="slide-content">
+            <h2>Configure Identity Source</h2>
+            <p class="subtitle">Change identity source to external and enable automatic provisioning</p>
+
+            <div style="margin-top: 40px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3>&#128260; Change to External Identity Provider</h3>
+                    <p style="color: #9a8a6e; margin-bottom: 15px;">
+                        By default, AWS IAM Identity Center uses its own <span class="highlight">Identity Center directory</span> as the identity source.
+                        To use Google Workspace for authentication, you must change the identity source to <span class="highlight">External identity provider</span>.
+                    </p>
+                    <p style="color: #9a8a6e; margin-bottom: 20px;">
+                        Navigate to <span class="highlight">Settings &gt; Identity source</span> tab and click <span class="highlight">Actions &gt; Change identity source</span>.
+                        Select "External identity provider" and configure the SAML settings.
+                    </p>
+                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);">
+                        <img src="identity_source_detail.png" alt="Identity Source Configuration" style="width: 100%; display: block;">
+                    </div>
+                </div>
+
+                <div class="info-grid" style="margin-top: 30px;">
+                    <div class="card feature-card">
+                        <h3 style="font-size: 1.4rem;">&#128196; SAML 2.0 Configuration</h3>
+                        <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                            After changing to external IdP, AWS provides important URLs that you need to configure in Google Workspace:
+                        </p>
+                        <ul style="color: #9a8a6e; line-height: 2; list-style: none; padding: 0;">
+                            <li><span class="highlight">&#8226;</span> <strong>IAM Identity Center Assertion Consumer Service (ACS) URL</strong></li>
+                            <li><span class="highlight">&#8226;</span> <strong>IAM Identity Center issuer URL (Entity ID)</strong></li>
+                        </ul>
+                        <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; padding: 4px 10px; background: rgba(66, 133, 244, 0.15); border: 1px solid rgba(66, 133, 244, 0.3); border-radius: 20px; font-size: 0.75rem; color: #6b9eff;">
+                            <span style="font-size: 0.85rem;">G</span> Copy to Google Workspace
+                        </div>
+                    </div>
+
+                    <div class="card feature-card">
+                        <h3 style="font-size: 1.4rem;">&#128260; Automatic Provisioning (SCIM)</h3>
+                        <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                            <span class="highlight">SCIM</span> (System for Cross-domain Identity Management) enables automatic user and group synchronization
+                            from Google Workspace to AWS IAM Identity Center.
+                        </p>
+                        <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                            When enabled, any user added to the Data Scientist group in Google Workspace will automatically
+                            appear in AWS IAM Identity Center - no manual creation needed.
+                        </p>
+                        <ul style="color: #9a8a6e; line-height: 2; list-style: none; padding: 0;">
+                            <li><span class="highlight">&#8226;</span> <strong>SCIM endpoint URL</strong> - API endpoint for provisioning</li>
+                            <li><span class="highlight">&#8226;</span> <strong>Access token</strong> - Authentication for SCIM requests</li>
+                        </ul>
+                        <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; padding: 4px 10px; background: rgba(66, 133, 244, 0.15); border: 1px solid rgba(66, 133, 244, 0.3); border-radius: 20px; font-size: 0.75rem; color: #6b9eff;">
+                            <span style="font-size: 0.85rem;">G</span> Configure in Google Workspace auto-provisioning
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px; text-align: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%); border-color: rgba(34, 197, 94, 0.25);">
+                <p style="color: #a8c9a8;">
+                    <span style="color: #22c55e; font-weight: 600;">&#10004; Result:</span> Users from Google Workspace are automatically synced to AWS.
+                    When they authenticate via Google, AWS grants access based on their group membership.
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">3 / 3</div>
     </section>
 
     <script>
