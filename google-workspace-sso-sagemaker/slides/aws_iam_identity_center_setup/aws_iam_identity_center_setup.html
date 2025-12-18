@@ -497,44 +497,67 @@
                     </div>
                 </div>
 
-                <div class="info-grid">
-                    <div class="card feature-card">
-                        <div class="icon">&#128100;</div>
-                        <h3 style="font-size: 1.3rem;">Users List</h3>
-                        <p style="color: #9a8a6e; line-height: 1.6;">
-                            The Users section shows all synchronized users from Google Workspace. Each user entry displays
-                            their <span class="highlight">username</span> (email), <span class="highlight">display name</span>,
-                            and <span class="highlight">status</span> (Enabled/Disabled).
-                        </p>
-                    </div>
+                <div class="card" style="padding: 35px; border: 2px solid rgba(212, 175, 55, 0.2);">
+                    <h3 style="text-align: center; margin-bottom: 10px;">&#128269; Understanding the Users Dashboard</h3>
+                    <p style="color: #9a8a6e; text-align: center; margin-bottom: 30px;">Key elements visible in the AWS IAM Identity Center Users list</p>
 
-                    <div class="card feature-card">
-                        <div class="icon">&#128279;</div>
-                        <h3 style="font-size: 1.3rem;">Created by SCIM</h3>
-                        <p style="color: #9a8a6e; line-height: 1.6;">
-                            The "Created by" column shows <span class="highlight">SCIM</span>, indicating these users were
-                            automatically provisioned through the SCIM protocol - not manually created in AWS.
-                            This proves the automatic provisioning is working.
-                        </p>
-                    </div>
+                    <div class="info-grid" style="margin-top: 0;">
+                        <div class="card feature-card">
+                            <div class="icon">&#128100;</div>
+                            <h3 style="font-size: 1.3rem;">Users List</h3>
+                            <p style="color: #9a8a6e; line-height: 1.6;">
+                                The Users section shows all synchronized users from Google Workspace. Each user entry displays
+                                their <span class="highlight">username</span> (email), <span class="highlight">display name</span>,
+                                and <span class="highlight">status</span> (Enabled/Disabled).
+                            </p>
+                        </div>
 
-                    <div class="card feature-card">
-                        <div class="icon">&#9989;</div>
-                        <h3 style="font-size: 1.3rem;">Enabled Status</h3>
-                        <p style="color: #9a8a6e; line-height: 1.6;">
-                            Users with <span class="highlight" style="color: #22c55e;">Enabled</span> status can sign in to AWS
-                            through the SSO portal. If a user is disabled in Google Workspace, their status will automatically
-                            update in AWS.
-                        </p>
-                    </div>
+                        <div class="card feature-card">
+                            <div class="icon">&#128279;</div>
+                            <h3 style="font-size: 1.3rem;">Created by SCIM</h3>
+                            <p style="color: #9a8a6e; line-height: 1.6;">
+                                The "Created by" column shows <span class="highlight">SCIM</span>, indicating these users were
+                                automatically provisioned through the SCIM protocol - not manually created in AWS.
+                                This proves the automatic provisioning is working.
+                            </p>
+                        </div>
 
-                    <div class="card feature-card">
-                        <div class="icon">&#128231;</div>
-                        <h3 style="font-size: 1.3rem;">Email as Username</h3>
-                        <p style="color: #9a8a6e; line-height: 1.6;">
-                            Users are identified by their <span class="highlight">Google Workspace email address</span>.
-                            This ensures consistency between both systems and makes it easy to identify users.
-                        </p>
+                        <div class="card feature-card">
+                            <div class="icon">&#9989;</div>
+                            <h3 style="font-size: 1.3rem;">Enabled Status</h3>
+                            <p style="color: #9a8a6e; line-height: 1.6;">
+                                Users with <span class="highlight" style="color: #22c55e;">Enabled</span> status can sign in to AWS
+                                through the SSO portal. If a user is disabled in Google Workspace, their status will automatically
+                                update in AWS.
+                            </p>
+                        </div>
+
+                        <div class="card feature-card">
+                            <div class="icon">&#128231;</div>
+                            <h3 style="font-size: 1.3rem;">Email as Username</h3>
+                            <p style="color: #9a8a6e; line-height: 1.6;">
+                                Users are identified by their <span class="highlight">Google Workspace email address</span>.
+                                This ensures consistency between both systems and makes it easy to identify users.
+                            </p>
+                        </div>
+
+                        <div class="card feature-card">
+                            <div class="icon">&#128101;</div>
+                            <h3 style="font-size: 1.3rem;">User Count</h3>
+                            <p style="color: #9a8a6e; line-height: 1.6;">
+                                The <span class="highlight">Users (2)</span> header shows the total number of synchronized users.
+                                This count updates automatically as users are added or removed from Google Workspace groups.
+                            </p>
+                        </div>
+
+                        <div class="card feature-card">
+                            <div class="icon">&#128270;</div>
+                            <h3 style="font-size: 1.3rem;">Search & Filter</h3>
+                            <p style="color: #9a8a6e; line-height: 1.6;">
+                                Use the <span class="highlight">Search users</span> box to quickly find specific users by username or display name.
+                                Essential for organizations with many synchronized users.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
