@@ -582,46 +582,67 @@
         <div class="slide-number">4 / 6</div>
     </section>
 
-    <!-- Slide 5: SageMaker Integration -->
+    <!-- Slide 5: Implementation Overview -->
     <section class="slide" id="slide5">
         <div class="slide-content">
-            <h2>SageMaker Studio Integration</h2>
-            <p class="subtitle">SSO-enabled access to machine learning workspaces</p>
+            <h2>Implementation Overview</h2>
+            <p class="subtitle">What to configure on each side and how they connect</p>
 
-            <div class="persona-card">
-                <div class="persona-avatar">&#128104;&#8205;&#128187;</div>
-                <div class="persona-info">
-                    <h4>Data Scientist</h4>
-                    <div class="email">data-scientist@cloud-diktat.info</div>
-                    <div class="role">Member of DataScientists group in Google Workspace</div>
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: stretch; margin-top: 40px;">
+                <!-- Google Workspace Side -->
+                <div class="card" style="border-color: rgba(66, 133, 244, 0.3); background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(66, 133, 244, 0.02) 100%);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 2.5rem;">G</div>
+                        <h3 style="color: #4285f4;">Google Workspace</h3>
+                    </div>
+                    <ul style="color: #94a3b8; line-height: 2; list-style: none; padding: 0;">
+                        <li>&#10003; Create SAML application for AWS</li>
+                        <li>&#10003; Configure SSO settings and ACS URL</li>
+                        <li>&#10003; Download IdP metadata XML</li>
+                        <li>&#10003; Create user groups (e.g., DataScientists)</li>
+                        <li>&#10003; Assign users to groups</li>
+                        <li>&#10003; Enable SCIM provisioning token</li>
+                    </ul>
+                </div>
+
+                <!-- Bridge / Connection -->
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+                    <div class="card" style="border-color: rgba(167, 139, 250, 0.4); background: linear-gradient(135deg, rgba(167, 139, 250, 0.15) 0%, rgba(167, 139, 250, 0.05) 100%); text-align: center; padding: 25px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">&#128279;</div>
+                        <h3 style="color: #a78bfa; font-size: 1.2rem;">The Bridge</h3>
+                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 15px; line-height: 1.6;">
+                            <strong style="color: #c4b5fd;">SAML Metadata</strong><br>
+                            Identity federation config
+                        </p>
+                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 15px; line-height: 1.6;">
+                            <strong style="color: #c4b5fd;">SCIM Endpoint</strong><br>
+                            User/group sync
+                        </p>
+                    </div>
+                    <div style="color: #64748b; font-size: 1.5rem; margin: 10px 0;">&#8596;</div>
+                </div>
+
+                <!-- AWS Side -->
+                <div class="card" style="border-color: rgba(255, 153, 0, 0.3); background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(255, 153, 0, 0.02) 100%);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 2.5rem;">&#9729;</div>
+                        <h3 style="color: #ff9900;">AWS</h3>
+                    </div>
+                    <ul style="color: #94a3b8; line-height: 2; list-style: none; padding: 0;">
+                        <li>&#10003; Enable IAM Identity Center</li>
+                        <li>&#10003; Set external IdP (Google)</li>
+                        <li>&#10003; Upload SAML metadata from Google</li>
+                        <li>&#10003; Configure SCIM auto-provisioning</li>
+                        <li>&#10003; Create permission sets</li>
+                        <li>&#10003; Assign groups to AWS accounts</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="card">
-                <h3>What the Data Scientist Gets</h3>
-                <div class="code-block">
-Permission Set: DataScientist
-&#8226; AmazonSageMakerFullAccess    - Full access to SageMaker Studio
-&#8226; AmazonS3ReadOnlyAccess       - Read datasets from S3 buckets
-&#8226; CreatePresignedDomainUrl     - Generate secure studio access URLs
-                </div>
-            </div>
-
-            <div class="problem-grid" style="margin-top: 30px;">
-                <div class="card">
-                    <h3>Private VPC Networking</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        SageMaker Studio runs in a private subnet with no internet access.
-                        VPC endpoints provide secure connectivity to AWS services.
-                    </p>
-                </div>
-                <div class="card">
-                    <h3>SSO Application Assignment</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        The DataScientists group is assigned to the SageMaker SSO application.
-                        Group members automatically see SageMaker in their AWS portal.
-                    </p>
-                </div>
+            <div class="card" style="margin-top: 30px; text-align: center;">
+                <p style="color: #94a3b8;">
+                    <span class="highlight">Result:</span> Users log in with Google credentials &#8594; automatically provisioned in AWS &#8594; access SageMaker Studio
+                </p>
             </div>
         </div>
         <div class="slide-number">5 / 6</div>
