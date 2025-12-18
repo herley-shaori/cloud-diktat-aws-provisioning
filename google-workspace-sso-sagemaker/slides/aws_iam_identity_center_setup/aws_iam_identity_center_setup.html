@@ -281,6 +281,7 @@
         <a href="#slide1"></a>
         <a href="#slide2"></a>
         <a href="#slide3"></a>
+        <a href="#slide4"></a>
     </nav>
 
     <!-- Slide 1: Title -->
@@ -305,7 +306,7 @@
                 </p>
             </div>
         </div>
-        <div class="slide-number">1 / 3</div>
+        <div class="slide-number">1 / 4</div>
     </section>
 
     <!-- Slide 2: What is AWS IAM Identity Center -->
@@ -377,7 +378,7 @@
                 </p>
             </div>
         </div>
-        <div class="slide-number">2 / 3</div>
+        <div class="slide-number">2 / 4</div>
     </section>
 
     <!-- Slide 3: Configure Identity Source -->
@@ -397,8 +398,44 @@
                         Navigate to <span class="highlight">Settings &gt; Identity source</span> tab and click <span class="highlight">Actions &gt; Change identity source</span>.
                         Select "External identity provider" and configure the SAML settings.
                     </p>
-                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);">
+                </div>
+
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3>&#10004; Successful Configuration</h3>
+                    <p style="color: #9a8a6e; margin-bottom: 20px;">
+                        The screenshot below shows a <span class="highlight">successfully configured</span> identity source. When your setup is complete,
+                        you will see similar information in your AWS IAM Identity Center dashboard.
+                    </p>
+                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1); margin-bottom: 25px;">
                         <img src="identity_source_detail.png" alt="Identity Source Configuration" style="width: 100%; display: block;">
+                    </div>
+
+                    <h4 style="color: #e6c555; font-size: 1.2rem; margin-bottom: 15px;">Configuration Elements Explained:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(212, 175, 55, 0.05); border-radius: 10px; padding: 15px; border-left: 3px solid #d4af37;">
+                            <strong style="color: #e6c555;">Identity source</strong>
+                            <p style="color: #9a8a6e; font-size: 0.9rem; margin-top: 5px;">Shows "External identity provider" - confirms Google Workspace is connected as the IdP.</p>
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.05); border-radius: 10px; padding: 15px; border-left: 3px solid #d4af37;">
+                            <strong style="color: #e6c555;">Authentication method</strong>
+                            <p style="color: #9a8a6e; font-size: 0.9rem; margin-top: 5px;">SAML 2.0 - The protocol used for authentication between Google and AWS.</p>
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.05); border-radius: 10px; padding: 15px; border-left: 3px solid #d4af37;">
+                            <strong style="color: #e6c555;">AWS access portal URL</strong>
+                            <p style="color: #9a8a6e; font-size: 0.9rem; margin-top: 5px;">The URL users visit to access AWS through SSO (e.g., https://yourcompany.awsapps.com/start).</p>
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.05); border-radius: 10px; padding: 15px; border-left: 3px solid #d4af37;">
+                            <strong style="color: #e6c555;">Provisioning method</strong>
+                            <p style="color: #9a8a6e; font-size: 0.9rem; margin-top: 5px;">SCIM - Enables automatic user/group sync from Google Workspace.</p>
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.05); border-radius: 10px; padding: 15px; border-left: 3px solid #d4af37;">
+                            <strong style="color: #e6c555;">Identity store</strong>
+                            <p style="color: #9a8a6e; font-size: 0.9rem; margin-top: 5px;">Unique ID for your IAM Identity Center instance (d-xxxxxxxxxx format).</p>
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.05); border-radius: 10px; padding: 15px; border-left: 3px solid #d4af37;">
+                            <strong style="color: #e6c555;">Issuer URL</strong>
+                            <p style="color: #9a8a6e; font-size: 0.9rem; margin-top: 5px;">The Entity ID URL that identifies AWS IAM Identity Center to Google Workspace.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -437,15 +474,80 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="slide-number">3 / 4</div>
+    </section>
+
+    <!-- Slide 4: Successful User Import -->
+    <section class="slide" id="slide4">
+        <div class="slide-content">
+            <h2>Successful User Synchronization</h2>
+            <p class="subtitle">Verifying the connection between Google Workspace and AWS</p>
+
+            <div style="margin-top: 40px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3>&#129309; Connection Handshake Complete</h3>
+                    <p style="color: #9a8a6e; margin-bottom: 20px;">
+                        When the connection between <span class="highlight">Google Workspace</span> and <span class="highlight">AWS IAM Identity Center</span> is successful,
+                        users from your Google Workspace directory will automatically appear in the AWS IAM Identity Center Users list.
+                        This confirms that the SAML and SCIM configuration is working correctly.
+                    </p>
+                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);">
+                        <img src="successfully_imported_user_from_google.png" alt="Successfully Imported Users from Google Workspace" style="width: 100%; display: block;">
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="card feature-card">
+                        <div class="icon">&#128100;</div>
+                        <h3 style="font-size: 1.3rem;">Users List</h3>
+                        <p style="color: #9a8a6e; line-height: 1.6;">
+                            The Users section shows all synchronized users from Google Workspace. Each user entry displays
+                            their <span class="highlight">username</span> (email), <span class="highlight">display name</span>,
+                            and <span class="highlight">status</span> (Enabled/Disabled).
+                        </p>
+                    </div>
+
+                    <div class="card feature-card">
+                        <div class="icon">&#128279;</div>
+                        <h3 style="font-size: 1.3rem;">Created by SCIM</h3>
+                        <p style="color: #9a8a6e; line-height: 1.6;">
+                            The "Created by" column shows <span class="highlight">SCIM</span>, indicating these users were
+                            automatically provisioned through the SCIM protocol - not manually created in AWS.
+                            This proves the automatic provisioning is working.
+                        </p>
+                    </div>
+
+                    <div class="card feature-card">
+                        <div class="icon">&#9989;</div>
+                        <h3 style="font-size: 1.3rem;">Enabled Status</h3>
+                        <p style="color: #9a8a6e; line-height: 1.6;">
+                            Users with <span class="highlight" style="color: #22c55e;">Enabled</span> status can sign in to AWS
+                            through the SSO portal. If a user is disabled in Google Workspace, their status will automatically
+                            update in AWS.
+                        </p>
+                    </div>
+
+                    <div class="card feature-card">
+                        <div class="icon">&#128231;</div>
+                        <h3 style="font-size: 1.3rem;">Email as Username</h3>
+                        <p style="color: #9a8a6e; line-height: 1.6;">
+                            Users are identified by their <span class="highlight">Google Workspace email address</span>.
+                            This ensures consistency between both systems and makes it easy to identify users.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             <div class="card" style="margin-top: 30px; text-align: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%); border-color: rgba(34, 197, 94, 0.25);">
                 <p style="color: #a8c9a8;">
-                    <span style="color: #22c55e; font-weight: 600;">&#10004; Result:</span> Users from Google Workspace are automatically synced to AWS.
-                    When they authenticate via Google, AWS grants access based on their group membership.
+                    <span style="color: #22c55e; font-weight: 600;">&#10004; Success!</span> The presence of SCIM-created users confirms that
+                    the handshake between Google Workspace and AWS IAM Identity Center is complete. Users can now authenticate
+                    to AWS using their Google credentials.
                 </p>
             </div>
         </div>
-        <div class="slide-number">3 / 3</div>
+        <div class="slide-number">4 / 4</div>
     </section>
 
     <script>
