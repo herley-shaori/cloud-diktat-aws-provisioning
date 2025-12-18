@@ -281,6 +281,7 @@
         <a href="#slide2"></a>
         <a href="#slide3"></a>
         <a href="#slide4"></a>
+        <a href="#slide5"></a>
     </nav>
 
     <!-- Slide 1: Title -->
@@ -304,7 +305,7 @@
                 </p>
             </div>
         </div>
-        <div class="slide-number">1 / 4</div>
+        <div class="slide-number">1 / 5</div>
     </section>
 
     <!-- Slide 2: Prerequisites -->
@@ -369,7 +370,7 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">2 / 4</div>
+        <div class="slide-number">2 / 5</div>
     </section>
 
     <!-- Slide 3: Registration Steps -->
@@ -446,14 +447,14 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">3 / 4</div>
+        <div class="slide-number">3 / 5</div>
     </section>
 
-    <!-- Slide 4: Created Users and Groups -->
+    <!-- Slide 4: Step 1 - Create Users and Groups -->
     <section class="slide" id="slide4">
         <div class="slide-content">
-            <h2>Users and Groups Created</h2>
-            <p class="subtitle">Example setup in Google Workspace Admin Console</p>
+            <h2>Step 1: Create Users and Groups</h2>
+            <p class="subtitle">Set up users and groups before configuring SSO application</p>
 
             <div style="margin-top: 40px;">
                 <div class="card" style="margin-bottom: 30px;">
@@ -477,13 +478,68 @@
                 </div>
             </div>
 
-            <div class="card" style="margin-top: 30px; text-align: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%); border-color: rgba(34, 197, 94, 0.3);">
+            <div class="card" style="margin-top: 30px; text-align: center; background: linear-gradient(135deg, rgba(139, 90, 43, 0.1) 0%, rgba(101, 67, 33, 0.05) 100%); border-color: rgba(139, 90, 43, 0.3);">
                 <p style="color: #4a3728;">
-                    <span style="color: #22c55e; font-weight: 600;">&#10004; Ready for SSO</span> - Users and groups are set up and ready for AWS IAM Identity Center integration
+                    <span class="highlight">&#128161; Why create a group?</span> Only members of the <strong>Data Scientist</strong> group will be allowed to SSO into AWS. This provides granular access control - not everyone in Google Workspace can access AWS, only those explicitly added to this group.
                 </p>
             </div>
         </div>
-        <div class="slide-number">4 / 4</div>
+        <div class="slide-number">4 / 5</div>
+    </section>
+
+    <!-- Slide 5: Step 2 - Create SAML Application -->
+    <section class="slide" id="slide5">
+        <div class="slide-content">
+            <h2>Step 2: Create SAML Application</h2>
+            <p class="subtitle">Configure Amazon Web Services as a SAML application in Google Workspace</p>
+
+            <div style="margin-top: 40px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3>&#128736; Web and Mobile Apps</h3>
+                    <p style="color: #6b5344; margin-bottom: 20px;">
+                        Navigate to <span class="highlight">Apps &gt; Web and mobile apps</span> and add a new SAML application for Amazon Web Services
+                    </p>
+                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(74, 55, 40, 0.15);">
+                        <img src="create_application_at_web_and_mobile.png" alt="Web and Mobile Apps in Google Admin" style="width: 100%; display: block;">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>&#9881; Application Details</h3>
+                    <p style="color: #6b5344; margin-bottom: 20px;">
+                        The SAML application configuration includes several key components:
+                    </p>
+                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(74, 55, 40, 0.15); margin-bottom: 20px;">
+                        <img src="sso_aplication_detail.png" alt="SSO Application Details" style="width: 100%; display: block;">
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+                        <div style="background: rgba(255,255,255,0.5); padding: 15px; border-radius: 10px;">
+                            <strong style="color: #8b5a2b;">User Access</strong>
+                            <p style="color: #6b5344; font-size: 0.9rem; margin-top: 5px;">ON for 1 group (Data Scientist) - Only this group can SSO</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.5); padding: 15px; border-radius: 10px;">
+                            <strong style="color: #8b5a2b;">Service Provider Details</strong>
+                            <p style="color: #6b5344; font-size: 0.9rem; margin-top: 5px;">ACS URL and Entity ID from AWS IAM Identity Center</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.5); padding: 15px; border-radius: 10px;">
+                            <strong style="color: #8b5a2b;">SAML Attribute Mapping</strong>
+                            <p style="color: #6b5344; font-size: 0.9rem; margin-top: 5px;">Maps Google user attributes to AWS SAML attributes</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.5); padding: 15px; border-radius: 10px;">
+                            <strong style="color: #8b5a2b;">Auto-provisioning</strong>
+                            <p style="color: #6b5344; font-size: 0.9rem; margin-top: 5px;">SCIM enabled - automatically syncs users to AWS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px; text-align: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%); border-color: rgba(34, 197, 94, 0.3);">
+                <p style="color: #4a3728;">
+                    <span style="color: #22c55e; font-weight: 600;">&#10004; Google Workspace Setup Complete</span> - Next step: Configure AWS IAM Identity Center to accept this SAML provider
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">5 / 5</div>
     </section>
 
     <script>
