@@ -633,6 +633,46 @@
                         This role determines what AWS resources notebooks and training jobs can access.
                     </p>
                 </div>
+
+                <div class="card feature-card">
+                    <div class="icon">&#127760;</div>
+                    <h3 style="font-size: 1.4rem;">VPC & Subnets</h3>
+                    <p style="color: #8b9dc3; line-height: 1.6; margin-bottom: 15px;">
+                        The foundational network infrastructure for SageMaker Domain:
+                    </p>
+                    <div class="architecture-box">
+                        <strong style="color: #7dff7d;">sagemaker-vpc (10.0.0.0/16)</strong>
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 5px;">DNS hostnames & DNS support enabled for VPC endpoint resolution.</p>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                        <span class="component-tag">Public Subnets (2x)</span>
+                        <span class="component-tag">Private Subnets (2x)</span>
+                        <span class="component-tag">Multi-AZ</span>
+                    </div>
+                    <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 10px;">
+                        SageMaker runs in <strong>private subnets</strong> with no direct internet access.
+                    </p>
+                </div>
+
+                <div class="card feature-card">
+                    <div class="icon">&#128680;</div>
+                    <h3 style="font-size: 1.4rem;">NAT Gateway</h3>
+                    <p style="color: #8b9dc3; line-height: 1.6; margin-bottom: 15px;">
+                        Enables <span class="highlight">outbound-only</span> internet access from private subnets:
+                    </p>
+                    <ul style="color: #8b9dc3; line-height: 1.8; padding-left: 20px;">
+                        <li>Download packages from <strong>PyPI, conda</strong></li>
+                        <li>Pull container images from <strong>Docker Hub</strong></li>
+                        <li>Access external APIs and datasets</li>
+                        <li>Software updates for notebooks</li>
+                    </ul>
+                    <div class="architecture-box">
+                        <strong style="color: #7dff7d;">Route: 0.0.0.0/0 &#8594; NAT Gateway</strong>
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 5px;">
+                            Private route table directs all external traffic through NAT in public subnet.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="slide-number">4 / 5</div>
