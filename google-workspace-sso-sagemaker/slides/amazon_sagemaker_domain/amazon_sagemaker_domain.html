@@ -13,8 +13,8 @@
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #12120f 50%, #1a1814 100%);
-            color: #e8e0d5;
+            background: linear-gradient(135deg, #0a0a12 0%, #0d0d18 50%, #121220 100%);
+            color: #e0e8f0;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -27,7 +27,7 @@
             align-items: center;
             padding: 60px 40px;
             position: relative;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(57, 255, 20, 0.1);
         }
 
         .slide::before {
@@ -37,8 +37,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 50%, rgba(255, 193, 37, 0.04) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 50%, rgba(57, 255, 20, 0.04) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.04) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -51,7 +51,7 @@
         h1 {
             font-size: 3.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #d4af37 0%, #f4c430 50%, #c5a028 100%);
+            background: linear-gradient(135deg, #39ff14 0%, #00ff88 50%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -62,27 +62,27 @@
         h2 {
             font-size: 2.5rem;
             font-weight: 600;
-            color: #d4af37;
+            color: #39ff14;
             margin-bottom: 40px;
             text-align: center;
         }
 
         h3 {
             font-size: 1.8rem;
-            color: #e6c555;
+            color: #7dff7d;
             margin-bottom: 20px;
         }
 
         .subtitle {
             font-size: 1.4rem;
-            color: #9a8a6e;
+            color: #8b9dc3;
             text-align: center;
             margin-bottom: 40px;
         }
 
         .card {
-            background: rgba(212, 175, 55, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.12);
+            background: rgba(57, 255, 20, 0.02);
+            border: 1px solid rgba(57, 255, 20, 0.12);
             border-radius: 16px;
             padding: 30px;
             margin: 20px 0;
@@ -92,7 +92,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 20px 40px rgba(57, 255, 20, 0.08), 0 10px 20px rgba(168, 85, 247, 0.05);
         }
 
         .icon {
@@ -108,7 +108,12 @@
         }
 
         .highlight {
-            color: #d4af37;
+            color: #39ff14;
+            font-weight: 600;
+        }
+
+        .highlight-purple {
+            color: #c084fc;
             font-weight: 600;
         }
 
@@ -117,7 +122,7 @@
             bottom: 30px;
             right: 40px;
             font-size: 0.9rem;
-            color: #5a5040;
+            color: #4a5568;
         }
 
         nav {
@@ -133,27 +138,29 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(212, 175, 55, 0.25);
+            background: rgba(57, 255, 20, 0.25);
             transition: background 0.3s ease;
         }
 
         nav a:hover, nav a.active {
-            background: #d4af37;
+            background: #39ff14;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
         }
 
         .aws-box {
-            background: rgba(212, 175, 55, 0.08);
-            border: 2px solid #d4af37;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #39ff14, #a855f7) 1;
             border-radius: 16px;
             padding: 25px 35px;
             text-align: center;
-            box-shadow: 0 4px 30px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 4px 30px rgba(57, 255, 20, 0.1), 0 4px 20px rgba(168, 85, 247, 0.1);
         }
 
         .aws-box-icon {
             font-size: 3rem;
             margin-bottom: 10px;
-            color: #d4af37;
+            color: #39ff14;
         }
 
         .back-link {
@@ -161,26 +168,31 @@
             top: 20px;
             left: 20px;
             z-index: 100;
-            color: #d4af37;
+            color: #39ff14;
             text-decoration: none;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 10px 15px;
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: rgba(57, 255, 20, 0.08);
+            border: 1px solid rgba(57, 255, 20, 0.2);
             border-radius: 8px;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .back-link:hover {
-            background: rgba(212, 175, 55, 0.15);
+            background: rgba(57, 255, 20, 0.15);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
         }
 
         .feature-card {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.06) 0%, rgba(197, 160, 40, 0.03) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.04) 0%, rgba(168, 85, 247, 0.03) 100%);
+            border: 1px solid rgba(57, 255, 20, 0.15);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(168, 85, 247, 0.3);
         }
 
         .flow-container {
@@ -195,16 +207,16 @@
             align-items: center;
             gap: 30px;
             padding: 25px 30px;
-            background: rgba(212, 175, 55, 0.03);
+            background: rgba(57, 255, 20, 0.02);
             border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.1);
             position: relative;
             transition: all 0.3s ease;
         }
 
         .flow-step:hover {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: rgba(212, 175, 55, 0.25);
+            background: rgba(168, 85, 247, 0.05);
+            border-color: rgba(168, 85, 247, 0.25);
         }
 
         .flow-step::after {
@@ -214,7 +226,7 @@
             left: 50%;
             width: 2px;
             height: 20px;
-            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.3), transparent);
+            background: linear-gradient(to bottom, rgba(57, 255, 20, 0.3), transparent);
         }
 
         .flow-step:last-child::after {
@@ -225,14 +237,15 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%);
+            background: linear-gradient(135deg, #39ff14 0%, #00cc66 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
             font-weight: 700;
-            color: #0a0a0f;
+            color: #0a0a12;
             flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
         }
 
         .step-icon {
@@ -247,19 +260,19 @@
         .step-title {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #e6c555;
+            color: #7dff7d;
             margin-bottom: 8px;
         }
 
         .step-description {
-            color: #9a8a6e;
+            color: #8b9dc3;
             font-size: 1rem;
             line-height: 1.6;
         }
 
         .architecture-box {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px dashed rgba(212, 175, 55, 0.3);
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px dashed rgba(168, 85, 247, 0.3);
             border-radius: 12px;
             padding: 20px;
             margin: 15px 0;
@@ -268,17 +281,28 @@
         .component-tag {
             display: inline-block;
             padding: 4px 12px;
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.3);
             border-radius: 20px;
             font-size: 0.85rem;
-            color: #e6c555;
+            color: #7dff7d;
+            margin: 4px;
+        }
+
+        .component-tag-purple {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #c084fc;
             margin: 4px;
         }
 
         .vpc-diagram {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(197, 160, 40, 0.03) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border: 2px solid rgba(57, 255, 20, 0.2);
             border-radius: 16px;
             padding: 30px;
             margin: 30px 0;
@@ -287,7 +311,7 @@
         .vpc-header {
             text-align: center;
             padding-bottom: 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
             margin-bottom: 20px;
         }
 
@@ -300,25 +324,32 @@
 
         .subnet-box {
             background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(57, 255, 20, 0.2);
             border-radius: 12px;
             padding: 20px;
         }
 
         .subnet-label {
             font-size: 0.85rem;
-            color: #9a8a6e;
+            color: #8b9dc3;
             margin-bottom: 10px;
         }
 
         .subnet-private {
-            border-color: rgba(147, 51, 234, 0.4);
-            background: rgba(147, 51, 234, 0.1);
+            border-color: rgba(168, 85, 247, 0.5);
+            background: rgba(168, 85, 247, 0.1);
         }
 
         .subnet-public {
-            border-color: rgba(34, 197, 94, 0.4);
-            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(57, 255, 20, 0.5);
+            background: rgba(57, 255, 20, 0.08);
+        }
+
+        code {
+            color: #c084fc;
+            background: rgba(168, 85, 247, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         @media (max-width: 768px) {
@@ -361,13 +392,13 @@
             <div style="display: flex; justify-content: center; margin: 40px 0;">
                 <div class="aws-box">
                     <div class="aws-box-icon">&#129302;</div>
-                    <div style="font-weight: 600; font-size: 1.2rem; color: #e6c555;">Amazon SageMaker</div>
-                    <p style="color: #9a8a6e; margin-top: 10px; font-size: 0.9rem;">Fully managed machine learning service</p>
+                    <div style="font-weight: 600; font-size: 1.2rem; color: #7dff7d;">Amazon SageMaker</div>
+                    <p style="color: #8b9dc3; margin-top: 10px; font-size: 0.9rem;">Fully managed machine learning service</p>
                 </div>
             </div>
 
             <div class="card" style="text-align: center; max-width: 900px; margin: 0 auto;">
-                <p style="color: #9a8a6e; line-height: 1.8;">
+                <p style="color: #8b9dc3; line-height: 1.8;">
                     <span class="highlight">Amazon SageMaker AI Domain</span> is a logical container that groups users,
                     notebooks, and ML resources together. When combined with <span class="highlight">IAM Identity Center SSO</span>,
                     users from Google Workspace can securely access SageMaker Studio and Jupyter notebooks without managing separate AWS credentials.
@@ -387,7 +418,7 @@
                 <div class="card feature-card">
                     <div class="icon">&#128187;</div>
                     <h3>SageMaker Studio</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6;">
+                    <p style="color: #8b9dc3; line-height: 1.6;">
                         A web-based IDE for ML development. Users can write code, train models, and deploy endpoints -
                         all from a browser. Each user gets their own <span class="highlight">JupyterServer</span> app.
                     </p>
@@ -396,7 +427,7 @@
                 <div class="card feature-card">
                     <div class="icon">&#128100;</div>
                     <h3>User Profiles</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6;">
+                    <p style="color: #8b9dc3; line-height: 1.6;">
                         Each user has a <span class="highlight">User Profile</span> that defines their execution role,
                         security groups, and personal settings. Profiles are isolated from each other.
                     </p>
@@ -405,7 +436,7 @@
                 <div class="card feature-card">
                     <div class="icon">&#128274;</div>
                     <h3>Authentication Modes</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6;">
+                    <p style="color: #8b9dc3; line-height: 1.6;">
                         Supports two auth modes: <span class="highlight">IAM</span> (for programmatic access) and
                         <span class="highlight">SSO</span> (for federated identity via IAM Identity Center).
                     </p>
@@ -414,7 +445,7 @@
                 <div class="card feature-card">
                     <div class="icon">&#128193;</div>
                     <h3>Amazon EFS Storage</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6;">
+                    <p style="color: #8b9dc3; line-height: 1.6;">
                         Each domain automatically creates an <span class="highlight">Amazon EFS</span> file system.
                         User home directories and notebooks are persisted here, surviving instance restarts.
                     </p>
@@ -423,7 +454,7 @@
                 <div class="card feature-card">
                     <div class="icon">&#127760;</div>
                     <h3>Network Isolation</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6;">
+                    <p style="color: #8b9dc3; line-height: 1.6;">
                         Domains can run in <span class="highlight">PublicInternetOnly</span> or <span class="highlight">VpcOnly</span> mode.
                         VpcOnly provides maximum security by keeping all traffic within your VPC.
                     </p>
@@ -432,15 +463,15 @@
                 <div class="card feature-card">
                     <div class="icon">&#9881;</div>
                     <h3>Execution Role</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6;">
+                    <p style="color: #8b9dc3; line-height: 1.6;">
                         An <span class="highlight">IAM Role</span> that SageMaker assumes when running notebooks and training jobs.
                         Controls what AWS resources the ML workloads can access.
                     </p>
                 </div>
             </div>
 
-            <div class="card" style="margin-top: 40px; text-align: center; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(197, 160, 40, 0.05) 100%); border-color: rgba(212, 175, 55, 0.25);">
-                <p style="color: #c9b896;">
+            <div class="card" style="margin-top: 40px; text-align: center; background: linear-gradient(135deg, rgba(57, 255, 20, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%); border-color: rgba(57, 255, 20, 0.25);">
+                <p style="color: #a0b8c8;">
                     <span class="highlight">&#128161; Key Point:</span> A SageMaker Domain is like a "workspace" that contains everything
                     your data science team needs - user profiles, notebooks, compute resources, and shared storage.
                 </p>
@@ -457,7 +488,7 @@
 
             <div class="card" style="margin-bottom: 30px;">
                 <h3>&#128274; What is VpcOnly Mode?</h3>
-                <p style="color: #9a8a6e; line-height: 1.8; margin-bottom: 20px;">
+                <p style="color: #8b9dc3; line-height: 1.8; margin-bottom: 20px;">
                     In <span class="highlight">VpcOnly</span> mode, SageMaker Domain runs entirely within your VPC.
                     There is <strong>no direct internet access</strong> - all AWS service communication happens through
                     <span class="highlight">VPC Endpoints</span>. This is ideal for regulated industries and sensitive data.
@@ -465,8 +496,8 @@
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
                     <div class="architecture-box">
-                        <strong style="color: #e6c555;">&#10004; Benefits</strong>
-                        <ul style="color: #9a8a6e; line-height: 1.8; margin-top: 10px; padding-left: 20px;">
+                        <strong style="color: #7dff7d;">&#10004; Benefits</strong>
+                        <ul style="color: #8b9dc3; line-height: 1.8; margin-top: 10px; padding-left: 20px;">
                             <li>No data leaves your VPC</li>
                             <li>Full network control</li>
                             <li>Meets compliance requirements</li>
@@ -474,8 +505,8 @@
                         </ul>
                     </div>
                     <div class="architecture-box">
-                        <strong style="color: #e6c555;">&#9888; Requirements</strong>
-                        <ul style="color: #9a8a6e; line-height: 1.8; margin-top: 10px; padding-left: 20px;">
+                        <strong style="color: #7dff7d;">&#9888; Requirements</strong>
+                        <ul style="color: #8b9dc3; line-height: 1.8; margin-top: 10px; padding-left: 20px;">
                             <li>VPC Endpoints for AWS services</li>
                             <li>Private subnets</li>
                             <li>Proper security groups</li>
@@ -488,7 +519,7 @@
             <div class="vpc-diagram">
                 <div class="vpc-header">
                     <span class="component-tag">VPC: 10.0.0.0/16</span>
-                    <p style="color: #9a8a6e; margin-top: 10px;">sagemaker-vpc</p>
+                    <p style="color: #8b9dc3; margin-top: 10px;">sagemaker-vpc</p>
                 </div>
 
                 <div class="subnet-row">
@@ -496,7 +527,7 @@
                         <div class="subnet-label">&#127760; Public Subnet (10.0.0.0/24, 10.0.1.0/24)</div>
                         <span class="component-tag">Internet Gateway</span>
                         <span class="component-tag">NAT Gateway</span>
-                        <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 10px;">
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 10px;">
                             Provides outbound internet access for private subnets via NAT
                         </p>
                     </div>
@@ -504,14 +535,14 @@
                         <div class="subnet-label">&#128274; Private Subnet (10.0.10.0/24, 10.0.11.0/24)</div>
                         <span class="component-tag">SageMaker Domain</span>
                         <span class="component-tag">VPC Endpoints</span>
-                        <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 10px;">
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 10px;">
                             SageMaker runs here, isolated from direct internet access
                         </p>
                     </div>
                 </div>
 
                 <div style="text-align: center; margin-top: 20px;">
-                    <p style="color: #9a8a6e; font-size: 0.9rem;">
+                    <p style="color: #8b9dc3; font-size: 0.9rem;">
                         &#8595; Traffic flows through VPC Endpoints, never touching the public internet &#8595;
                     </p>
                 </div>
@@ -530,18 +561,18 @@
                 <div class="card feature-card">
                     <div class="icon">&#128272;</div>
                     <h3 style="font-size: 1.4rem;">Security Groups</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="color: #8b9dc3; line-height: 1.6; margin-bottom: 15px;">
                         Two security groups control network access:
                     </p>
                     <div class="architecture-box">
-                        <strong style="color: #e6c555;">sagemaker-domain-sg</strong>
-                        <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 5px;">
+                        <strong style="color: #7dff7d;">sagemaker-domain-sg</strong>
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 5px;">
                             Attached to SageMaker. Allows all outbound traffic and permits internal communication (self-referencing).
                         </p>
                     </div>
                     <div class="architecture-box">
-                        <strong style="color: #e6c555;">vpc-endpoints-sg</strong>
-                        <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 5px;">
+                        <strong style="color: #7dff7d;">vpc-endpoints-sg</strong>
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 5px;">
                             Attached to VPC Endpoints. Allows HTTPS (443) from SageMaker security group and private subnets.
                         </p>
                     </div>
@@ -550,7 +581,7 @@
                 <div class="card feature-card">
                     <div class="icon">&#128268;</div>
                     <h3 style="font-size: 1.4rem;">VPC Endpoints</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="color: #8b9dc3; line-height: 1.6; margin-bottom: 15px;">
                         Private connections to AWS services (no internet required):
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
@@ -564,7 +595,7 @@
                         <span class="component-tag">ECR DKR</span>
                         <span class="component-tag">Service Catalog</span>
                     </div>
-                    <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 15px;">
+                    <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 15px;">
                         &#128161; Without these endpoints, SageMaker cannot access AWS services in VpcOnly mode.
                     </p>
                 </div>
@@ -572,33 +603,33 @@
                 <div class="card feature-card">
                     <div class="icon">&#128193;</div>
                     <h3 style="font-size: 1.4rem;">Amazon EFS</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="color: #8b9dc3; line-height: 1.6; margin-bottom: 15px;">
                         <span class="highlight">Elastic File System</span> is automatically created by SageMaker Domain:
                     </p>
-                    <ul style="color: #9a8a6e; line-height: 1.8; padding-left: 20px;">
+                    <ul style="color: #8b9dc3; line-height: 1.8; padding-left: 20px;">
                         <li>Stores user <strong>home directories</strong></li>
                         <li>Persists <strong>Jupyter notebooks</strong></li>
                         <li>Shared across all user profiles</li>
                         <li>Survives instance stop/start</li>
-                        <li>Mounted at <code style="color: #e6c555;">/home/sagemaker-user</code></li>
+                        <li>Mounted at <code style="color: #c084fc;">/home/sagemaker-user</code></li>
                     </ul>
                 </div>
 
                 <div class="card feature-card">
                     <div class="icon">&#9881;</div>
                     <h3 style="font-size: 1.4rem;">IAM Execution Role</h3>
-                    <p style="color: #9a8a6e; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="color: #8b9dc3; line-height: 1.6; margin-bottom: 15px;">
                         The role SageMaker assumes when running workloads:
                     </p>
                     <div class="architecture-box">
-                        <strong style="color: #e6c555;">sagemaker-execution-role</strong>
-                        <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 5px;">Attached policies:</p>
+                        <strong style="color: #7dff7d;">sagemaker-execution-role</strong>
+                        <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 5px;">Attached policies:</p>
                         <div style="margin-top: 10px;">
                             <span class="component-tag">AmazonSageMakerFullAccess</span>
                             <span class="component-tag">AmazonS3ReadOnlyAccess</span>
                         </div>
                     </div>
-                    <p style="color: #9a8a6e; font-size: 0.85rem; margin-top: 10px;">
+                    <p style="color: #8b9dc3; font-size: 0.85rem; margin-top: 10px;">
                         This role determines what AWS resources notebooks and training jobs can access.
                     </p>
                 </div>
@@ -620,7 +651,7 @@
                     <div class="step-content">
                         <div class="step-title">AWS Organizations & OU</div>
                         <div class="step-description">
-                            <code style="color: #e6c555;">organizational-unit.tf</code> creates a "Data Scientist" Organizational Unit
+                            <code style="color: #c084fc;">organizational-unit.tf</code> creates a "Data Scientist" Organizational Unit
                             under the root. This provides logical grouping and can be used for SCPs (Service Control Policies).
                         </div>
                     </div>
@@ -632,7 +663,7 @@
                     <div class="step-content">
                         <div class="step-title">Identity Store Group & Permission Set</div>
                         <div class="step-description">
-                            <code style="color: #e6c555;">sso.tf</code> creates a <span class="highlight">DataScientists</span> group
+                            <code style="color: #c084fc;">sso.tf</code> creates a <span class="highlight">DataScientists</span> group
                             in IAM Identity Center and a <span class="highlight">DataScientist</span> permission set with
                             SageMakerFullAccess + S3ReadOnlyAccess policies.
                         </div>
@@ -645,7 +676,7 @@
                     <div class="step-content">
                         <div class="step-title">User Lookup from SCIM</div>
                         <div class="step-description">
-                            The <code style="color: #e6c555;">aws_identitystore_user</code> data source looks up the user
+                            The <code style="color: #c084fc;">aws_identitystore_user</code> data source looks up the user
                             <span class="highlight">herley@cloud-diktat.info</span> who was automatically provisioned
                             from Google Workspace via SCIM synchronization.
                         </div>
@@ -670,7 +701,7 @@
                     <div class="step-content">
                         <div class="step-title">SageMaker Domain with SSO Auth</div>
                         <div class="step-description">
-                            <code style="color: #e6c555;">sagemaker.tf</code> creates the domain with <span class="highlight">auth_mode = "SSO"</span>.
+                            <code style="color: #c084fc;">sagemaker.tf</code> creates the domain with <span class="highlight">auth_mode = "SSO"</span>.
                             The domain runs in VpcOnly mode with private subnets and depends on all VPC endpoints being ready.
                         </div>
                     </div>
@@ -682,7 +713,7 @@
                     <div class="step-content">
                         <div class="step-title">User Profile Linked to SSO Identity</div>
                         <div class="step-description">
-                            A <code style="color: #e6c555;">aws_sagemaker_user_profile</code> is created with
+                            A <code style="color: #c084fc;">aws_sagemaker_user_profile</code> is created with
                             <span class="highlight">single_sign_on_user_value = "herley@cloud-diktat.info"</span>.
                             Only this SSO user can claim and use this SageMaker profile.
                         </div>
@@ -695,7 +726,7 @@
                     <div class="step-content">
                         <div class="step-title">Application Assignment</div>
                         <div class="step-description">
-                            <code style="color: #e6c555;">aws_ssoadmin_application_assignment</code> grants the DataScientists group
+                            <code style="color: #c084fc;">aws_ssoadmin_application_assignment</code> grants the DataScientists group
                             access to the SageMaker Studio SSO application. Users see SageMaker in their AWS access portal.
                         </div>
                     </div>
