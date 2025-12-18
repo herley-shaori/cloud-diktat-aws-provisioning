@@ -190,6 +190,30 @@
             line-height: 1.6;
         }
 
+        .user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            color: #c4b5fd;
+        }
+
+        .user-badge .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
         .highlight {
             color: #a5b4fc;
             font-weight: 600;
@@ -205,6 +229,29 @@
             color: #a5b4fc;
             overflow-x: auto;
             margin: 20px 0;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #22c55e;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
         .architecture-diagram {
@@ -356,25 +403,37 @@
         <a href="#slide6"></a>
     </nav>
 
-    <!-- Slide 1: Title -->
+    <!-- Slide 1: Title & Learning Objectives -->
     <section class="slide" id="slide1">
         <div class="slide-content">
             <h1>Google Workspace SSO to AWS SageMaker</h1>
-            <p class="subtitle">Seamless Identity Federation for Data Science Teams</p>
+            <p class="subtitle">A hands-on tutorial for cloud architects and DevOps engineers</p>
+
+            <div class="card" style="margin-top: 40px;">
+                <h3>What You Will Learn</h3>
+                <p style="color: #94a3b8; line-height: 1.8; margin-top: 15px;">
+                    In this tutorial, we will follow a <span class="highlight">Data Scientist</span> who just joined a company that uses Google Workspace.
+                    The team needs access to AWS SageMaker Studio for machine learning work, but the company wants to avoid creating separate AWS credentials.
+                </p>
+                <p style="color: #94a3b8; line-height: 1.8; margin-top: 15px;">
+                    By the end of this tutorial, you will understand how to connect Google Workspace to AWS using Single Sign-On (SSO),
+                    and how to provision SageMaker access automatically when new team members join.
+                </p>
+            </div>
 
             <div class="architecture-diagram">
                 <div class="arch-box google">
-                    <div class="arch-box-icon">G</div>
+                    <div class="arch-box-icon">🔵</div>
                     <div class="arch-box-title">Google Workspace</div>
                 </div>
-                <span class="arrow">&#8594;</span>
+                <span class="arrow">→</span>
                 <div class="arch-box aws-sso">
-                    <div class="arch-box-icon">&#128274;</div>
+                    <div class="arch-box-icon">🔐</div>
                     <div class="arch-box-title">AWS IAM Identity Center</div>
                 </div>
-                <span class="arrow">&#8594;</span>
+                <span class="arrow">→</span>
                 <div class="arch-box sagemaker">
-                    <div class="arch-box-icon">&#129504;</div>
+                    <div class="arch-box-icon">🧠</div>
                     <div class="arch-box-title">SageMaker Studio</div>
                 </div>
             </div>
@@ -386,205 +445,219 @@
         <div class="slide-number">1 / 6</div>
     </section>
 
-    <!-- Slide 2: The Problem -->
+    <!-- Slide 2: The Scenario -->
     <section class="slide" id="slide2">
         <div class="slide-content">
-            <h2>The Problem: Identity Sprawl</h2>
-            <p class="subtitle">Managing multiple identity systems creates security risks and operational burden</p>
+            <h2>Chapter 1: The Scenario</h2>
+            <p class="subtitle">A common challenge in modern organizations</p>
 
-            <div class="problem-grid">
-                <div class="card problem-card">
-                    <div class="icon">&#128273;</div>
-                    <h3>Multiple Credentials</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Data Scientists must remember separate passwords for Google Workspace and AWS Console.
-                        Password fatigue leads to weak passwords and security vulnerabilities.
-                    </p>
+            <div class="persona-card">
+                <div class="persona-avatar">👨‍🔬</div>
+                <div class="persona-info">
+                    <h4>Data Scientist</h4>
+                    <div class="email">data-scientist@cloud-diktat.info</div>
+                    <div class="role">Newly joined at Cloud Diktat</div>
                 </div>
+            </div>
 
-                <div class="card problem-card">
-                    <div class="icon">&#9888;</div>
-                    <h3>Offboarding Risk</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        When employees leave, IT must manually revoke access across multiple systems.
-                        Missed accounts become security backdoors.
-                    </p>
-                </div>
-
-                <div class="card problem-card">
-                    <div class="icon">&#128336;</div>
-                    <h3>Slow Onboarding</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        New team members wait days for AWS accounts to be provisioned.
-                        Manual account creation does not scale with team growth.
-                    </p>
-                </div>
-
-                <div class="card problem-card">
-                    <div class="icon">&#128202;</div>
-                    <h3>Audit Complexity</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Compliance audits require matching AWS users to HR records.
-                        Separate identity systems make this error-prone and time-consuming.
-                    </p>
-                </div>
+            <div class="card">
+                <p style="color: #94a3b8; line-height: 1.8; font-size: 1.1rem;">
+                    A new Data Scientist joins Cloud Diktat. They are excited to start building machine learning models,
+                    but there is a problem: <span class="highlight">they cannot access AWS SageMaker Studio</span>.
+                </p>
+                <p style="color: #94a3b8; line-height: 1.8; margin-top: 20px; font-size: 1.1rem;">
+                    The IT team tells them: <em>"We do not create IAM users anymore. You should be able to log in with your Google account."</em>
+                </p>
+                <p style="color: #94a3b8; line-height: 1.8; margin-top: 20px; font-size: 1.1rem;">
+                    But how does that work? How can a Google Workspace account give access to AWS services?
+                </p>
+                <p style="color: #c4b5fd; line-height: 1.8; margin-top: 20px; font-size: 1.1rem; font-weight: 600;">
+                    Let us find out together.
+                </p>
             </div>
         </div>
         <div class="slide-number">2 / 6</div>
     </section>
 
-    <!-- Slide 3: The Solution -->
+    <!-- Slide 3: Understanding the Problem -->
     <section class="slide" id="slide3">
         <div class="slide-content">
-            <h2>The Solution: Single Sign-On (SSO)</h2>
-            <p class="subtitle">One identity provider, unified access across all platforms</p>
+            <h2>Chapter 2: The Traditional Way (And Why It Fails)</h2>
+            <p class="subtitle">Understanding the problem before we solve it</p>
+
+            <div class="card" style="margin-bottom: 30px;">
+                <p style="color: #94a3b8; line-height: 1.8; font-size: 1.1rem;">
+                    Before SSO, companies would create separate AWS IAM users for each employee.
+                    Let us examine why this approach creates challenges:
+                </p>
+            </div>
 
             <div class="problem-grid">
-                <div class="card solution-card">
-                    <div class="icon">&#127919;</div>
-                    <h3>Single Source of Truth</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Google Workspace becomes the authoritative identity provider.
-                        One password, one MFA setup, access to everything.
-                    </p>
+                <div class="card problem-card">
+                    <div class="icon">🔑</div>
+                    <h3>Multiple Passwords</h3>
+                    <p>The Data Scientist already has a Google password. Now they need another password for AWS?
+                    Studies show users with multiple passwords often reuse them or write them down, both security risks.</p>
                 </div>
 
-                <div class="card solution-card">
-                    <div class="icon">&#9889;</div>
-                    <h3>Automatic Provisioning</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        SCIM protocol syncs users and groups automatically.
-                        Add someone to a Google Group, they instantly get AWS access.
-                    </p>
+                <div class="card problem-card">
+                    <div class="icon">⚠️</div>
+                    <h3>Offboarding Risk</h3>
+                    <p>When someone leaves the company, IT must remember to disable their AWS account separately from their Google account.
+                    Miss one, and you have a security breach waiting to happen.</p>
                 </div>
 
-                <div class="card solution-card">
-                    <div class="icon">&#128274;</div>
-                    <h3>Instant Deprovisioning</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Disable a Google account, AWS access is revoked immediately.
-                        No orphaned accounts, no security gaps.
-                    </p>
+                <div class="card problem-card">
+                    <div class="icon">🐌</div>
+                    <h3>Slow Onboarding</h3>
+                    <p>The Data Scientist cannot start working until IT manually creates their AWS account.
+                    This could take days, and multiply that by every new hire across the organization.</p>
                 </div>
 
-                <div class="card solution-card">
-                    <div class="icon">&#9989;</div>
-                    <h3>Simplified Compliance</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Single audit trail from Google to AWS.
-                        Prove who has access and why in minutes, not hours.
-                    </p>
+                <div class="card problem-card">
+                    <div class="icon">📋</div>
+                    <h3>Audit Complexity</h3>
+                    <p>During security audits, you need to verify that your AWS users match your actual employees.
+                    With separate identity systems, this becomes a spreadsheet nightmare.</p>
                 </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px; border-color: rgba(167, 139, 250, 0.3);">
+                <p style="color: #c4b5fd; line-height: 1.8; font-size: 1.1rem; text-align: center;">
+                    <strong>Key Concept:</strong> The root problem is maintaining two separate identity systems.
+                    The solution is to make one system the "source of truth" for identity.
+                </p>
             </div>
         </div>
         <div class="slide-number">3 / 6</div>
     </section>
 
-    <!-- Slide 4: How It Works -->
+    <!-- Slide 4: The Solution - SSO Explained -->
     <section class="slide" id="slide4">
         <div class="slide-content">
-            <h2>How It Works: The Authentication Flow</h2>
-            <p class="subtitle">SAML 2.0 enables secure identity federation between Google and AWS</p>
+            <h2>Chapter 3: Enter Single Sign-On</h2>
+            <p class="subtitle">One identity to rule them all</p>
 
-            <div class="flow-container">
-                <div class="flow-step">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">&#128100;</div>
-                    <div class="step-content">
-                        <div class="step-title">User Accesses AWS Portal</div>
-                        <div class="step-description">
-                            Data Scientist navigates to <span class="highlight">https://d-xxxxxxxxxx.awsapps.com/start</span>
-                        </div>
-                    </div>
+            <div class="card" style="margin-bottom: 30px;">
+                <p style="color: #94a3b8; line-height: 1.8; font-size: 1.1rem;">
+                    <span class="highlight">Single Sign-On (SSO)</span> allows users to authenticate once with their primary identity provider
+                    (in our case, Google Workspace) and gain access to multiple applications (like AWS) without logging in again.
+                </p>
+                <p style="color: #94a3b8; line-height: 1.8; margin-top: 15px; font-size: 1.1rem;">
+                    Think of it like a hotel key card: you check in once at the front desk, and that same card opens your room,
+                    the gym, and the pool. You do not need a separate key for each door.
+                </p>
+            </div>
+
+            <h3 style="text-align: center; margin-bottom: 30px;">How This Helps Data Scientists</h3>
+
+            <div class="problem-grid">
+                <div class="card solution-card">
+                    <div class="icon">🎯</div>
+                    <h3>One Password</h3>
+                    <p>The Data Scientist uses their existing Google Workspace credentials. No new password to remember or manage.</p>
                 </div>
 
-                <div class="flow-step">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">&#128260;</div>
-                    <div class="step-content">
-                        <div class="step-title">Redirect to Google</div>
-                        <div class="step-description">
-                            AWS IAM Identity Center redirects to Google Workspace for authentication
-                        </div>
-                    </div>
+                <div class="card solution-card">
+                    <div class="icon">⚡</div>
+                    <h3>Automatic Provisioning</h3>
+                    <p>Using SCIM (System for Cross-domain Identity Management), when a Data Scientist is added to Google Workspace,
+                    their identity is automatically synced to AWS.</p>
                 </div>
 
-                <div class="flow-step">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">&#128272;</div>
-                    <div class="step-content">
-                        <div class="step-title">Google Authenticates</div>
-                        <div class="step-description">
-                            User logs in with <span class="highlight">data-scientist@cloud-diktat.info</span> credentials and completes MFA
-                        </div>
-                    </div>
+                <div class="card solution-card">
+                    <div class="icon">🔒</div>
+                    <h3>Inherited Security</h3>
+                    <p>Google Workspace MFA, password policies, and conditional access rules automatically protect AWS access too.</p>
                 </div>
 
-                <div class="flow-step">
-                    <div class="step-number">4</div>
-                    <div class="step-icon">&#128196;</div>
-                    <div class="step-content">
-                        <div class="step-title">SAML Assertion Issued</div>
-                        <div class="step-description">
-                            Google creates a signed SAML assertion containing user identity and group memberships
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flow-step">
-                    <div class="step-number">5</div>
-                    <div class="step-icon">&#9989;</div>
-                    <div class="step-content">
-                        <div class="step-title">AWS Grants Access</div>
-                        <div class="step-description">
-                            AWS validates the assertion and assigns the <span class="highlight">DataScientist</span> permission set based on group membership
-                        </div>
-                    </div>
+                <div class="card solution-card">
+                    <div class="icon">🗑️</div>
+                    <h3>Clean Offboarding</h3>
+                    <p>Disable someone in Google Workspace, and their AWS access is automatically revoked. One action, complete security.</p>
                 </div>
             </div>
         </div>
         <div class="slide-number">4 / 6</div>
     </section>
 
-    <!-- Slide 5: SageMaker Integration -->
+    <!-- Slide 5: The Login Flow - Step by Step -->
     <section class="slide" id="slide5">
         <div class="slide-content">
-            <h2>SageMaker Studio Integration</h2>
-            <p class="subtitle">SSO-enabled access to machine learning workspaces</p>
+            <h2>Chapter 4: The Login Flow</h2>
+            <p class="subtitle">Follow along as a Data Scientist accesses SageMaker for the first time</p>
 
-            <div class="persona-card">
-                <div class="persona-avatar">&#128104;&#8205;&#128187;</div>
-                <div class="persona-info">
-                    <h4>Data Scientist</h4>
-                    <div class="email">data-scientist@cloud-diktat.info</div>
-                    <div class="role">Member of DataScientists group in Google Workspace</div>
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">🌐</div>
+                    <div class="step-content">
+                        <div class="step-title">Open the AWS access portal</div>
+                        <div class="step-description">
+                            IT provides a URL that looks like <code style="color: #a5b4fc;">https://d-xxxxxxxxxx.awsapps.com/start</code>.
+                            This is the <span class="highlight">AWS IAM Identity Center portal</span>, the front door to AWS for SSO users.
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <h3>What the Data Scientist Gets</h3>
-                <div class="code-block">
-Permission Set: DataScientist
-&#8226; AmazonSageMakerFullAccess    - Full access to SageMaker Studio
-&#8226; AmazonS3ReadOnlyAccess       - Read datasets from S3 buckets
-&#8226; CreatePresignedDomainUrl     - Generate secure studio access URLs
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🔵</div>
+                    <div class="step-content">
+                        <div class="step-title">The portal redirects to Google</div>
+                        <div class="step-description">
+                            Instead of an AWS login form, the Data Scientist sees the familiar Google sign-in page.
+                            This happens because AWS is configured to trust Google as the <span class="highlight">Identity Provider (IdP)</span>.
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="problem-grid" style="margin-top: 30px;">
-                <div class="card">
-                    <h3>Private VPC Networking</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        SageMaker Studio runs in a private subnet with no internet access.
-                        VPC endpoints provide secure connectivity to AWS services.
-                    </p>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🔐</div>
+                    <div class="step-content">
+                        <div class="step-title">Authenticate with Google</div>
+                        <div class="step-description">
+                            They enter <span class="highlight">data-scientist@cloud-diktat.info</span> and their password.
+                            If MFA is enabled (it should be!), they complete that step too. Google verifies their identity.
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>SSO Application Assignment</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        The DataScientists group is assigned to the SageMaker SSO application.
-                        Group members automatically see SageMaker in their AWS portal.
-                    </p>
+
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">📜</div>
+                    <div class="step-content">
+                        <div class="step-title">Google issues a SAML assertion</div>
+                        <div class="step-description">
+                            Behind the scenes, Google creates a <span class="highlight">SAML assertion</span>, a digitally signed document
+                            that says "This user belongs to the DataScientists group." This is sent to AWS.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">✅</div>
+                    <div class="step-content">
+                        <div class="step-title">AWS validates and grants access</div>
+                        <div class="step-description">
+                            AWS IAM Identity Center receives the SAML assertion, validates Google's signature,
+                            and checks: "Is there a permission set assigned to the DataScientists group?" Yes, the <span class="highlight">DataScientist</span> permission set.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">6</div>
+                    <div class="step-icon">🧠</div>
+                    <div class="step-content">
+                        <div class="step-title">Launch SageMaker Studio</div>
+                        <div class="step-description">
+                            The Data Scientist clicks into the AWS console, navigates to SageMaker, and sees their personal profile.
+                            They click "Open Studio" and start working. Total time: under 30 seconds.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -594,47 +667,57 @@ Permission Set: DataScientist
     <!-- Slide 6: Key Takeaways -->
     <section class="slide" id="slide6">
         <div class="slide-content">
-            <h2>Key Takeaways</h2>
-            <p class="subtitle">Why this architecture works</p>
+            <h2>Chapter 5: What We Learned</h2>
+            <p class="subtitle">Key takeaways from this tutorial</p>
 
             <div class="problem-grid">
                 <div class="card">
-                    <h3>&#128273; Identity Federation</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Google Workspace acts as the Identity Provider (IdP).
-                        AWS trusts Google to authenticate users via SAML 2.0.
+                    <h3>Identity Federation</h3>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        We learned that <span class="highlight">identity federation</span> allows one system (Google Workspace)
+                        to vouch for a user's identity to another system (AWS). This eliminates duplicate accounts and passwords.
                     </p>
                 </div>
 
                 <div class="card">
-                    <h3>&#128101; Group-Based Access</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Permission sets are assigned to groups, not individuals.
-                        Add users to Google Groups to grant AWS access.
+                    <h3>SAML Protocol</h3>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        <span class="highlight">SAML (Security Assertion Markup Language)</span> is the protocol that makes this possible.
+                        It is a standard way for identity providers to communicate authentication and authorization data.
                     </p>
                 </div>
 
                 <div class="card">
-                    <h3>&#128230; Infrastructure as Code</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Terraform manages SSO configuration, permission sets, and SageMaker infrastructure.
-                        Reproducible and version-controlled.
+                    <h3>SCIM Provisioning</h3>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        <span class="highlight">SCIM</span> automatically syncs users and groups from Google to AWS.
+                        When a Data Scientist is added to Google Workspace, SCIM creates their identity in AWS IAM Identity Center.
                     </p>
                 </div>
 
                 <div class="card">
-                    <h3>&#128274; Zero Trust Security</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">
-                        Private VPC with no internet gateway.
-                        All AWS service access through VPC endpoints.
+                    <h3>Permission Sets</h3>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        AWS <span class="highlight">Permission Sets</span> define what users can do.
+                        By assigning the DataScientist permission set to the DataScientists group, all members automatically get the right access.
                     </p>
                 </div>
             </div>
 
             <div class="card" style="margin-top: 40px; text-align: center;">
-                <h3 style="color: #22c55e;">Ready to Implement?</h3>
-                <p style="color: #94a3b8; margin-top: 15px;">
-                    Complete Terraform code available at <span class="highlight">cloud-diktat.info</span>
+                <h3 style="color: #22c55e;">Ready to Build This Yourself?</h3>
+                <p style="color: #94a3b8; margin-top: 15px; line-height: 1.8;">
+                    The complete Terraform code for this tutorial is available in the repository.
+                    Each file handles a specific part of the architecture:
+                </p>
+                <div class="code-block" style="text-align: left;">
+                    sso.tf           # Permission sets, groups, and SSO application assignments<br>
+                    sagemaker.tf     # SageMaker domain and user profiles<br>
+                    vpc.tf           # Private VPC for secure networking<br>
+                    vpc-endpoints.tf # VPC endpoints so SageMaker works without internet
+                </div>
+                <p style="color: #c4b5fd; margin-top: 20px; font-size: 1.1rem;">
+                    Data Scientists can now focus on building ML models instead of fighting with access credentials.
                 </p>
             </div>
         </div>
@@ -642,6 +725,7 @@ Permission Set: DataScientist
     </section>
 
     <script>
+        // Simple navigation highlight
         const navLinks = document.querySelectorAll('nav a');
         const slides = document.querySelectorAll('.slide');
 
