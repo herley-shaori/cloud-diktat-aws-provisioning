@@ -1,0 +1,4 @@
+# Force Unix line endings for all Terraform files
+# This prevents CRLF issues with embedded bash scripts in lifecycle configurations
+*.tf text eol=lf
+*.sh text eol=lf
