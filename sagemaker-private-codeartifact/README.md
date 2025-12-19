@@ -21,7 +21,7 @@ Deploy a SageMaker Notebook Instance in a fully isolated private subnet while st
 │  │  │ Private Subnet  │              │  CodeArtifact  │                  │  │
 │  │  │  (10.0.1.0/24)  │              │                │                  │  │
 │  │  │                 │              │  ┌──────────┐  │                  │  │
-│  │  │  ┌───────────┐  │  VPC         │  │pypi-store│◄─┼── public:pypi   │  │
+│  │  │  ┌───────────┐  │  VPC         │  │pypi-store│◄─┼── public:pypi    │  │
 │  │  │  │ SageMaker │  │  Endpoint    │  └────┬─────┘  │                  │  │
 │  │  │  │ Notebook  │──┼──────────────┼───►   │        │                  │  │
 │  │  │  │           │  │  (Private)   │  ┌────▼─────┐  │                  │  │
@@ -32,10 +32,10 @@ Deploy a SageMaker Notebook Instance in a fully isolated private subnet while st
 │  │  └─────────────────┘                                                  │  │
 │  │                                                                       │  │
 │  │  VPC Endpoints:                                                       │  │
-│  │  • codeartifact.api        • sagemaker.api      • ecr.api            │  │
-│  │  • codeartifact.repositories • sagemaker.runtime • ecr.dkr           │  │
-│  │  • sts                     • notebook           • logs               │  │
-│  │  • s3 (Gateway)                                                      │  │
+│  │  • codeartifact.api        • sagemaker.api      • ecr.api             │  │
+│  │  • codeartifact.repositories • sagemaker.runtime • ecr.dkr            │  │
+│  │  • sts                     • notebook           • logs                │  │
+│  │  • s3 (Gateway)                                                       │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -49,6 +49,28 @@ Deploy a SageMaker Notebook Instance in a fully isolated private subnet while st
    - `sagemaker-packages` repository uses `pypi-store` as upstream
    - CodeArtifact fetches packages from PyPI and caches them
 4. **Lifecycle Configuration** automatically configures pip to use CodeArtifact on notebook start
+
+## Experiment Results
+
+Successfully tested installing packages from a private SageMaker notebook through CodeArtifact:
+
+```
+sh-4.2$ pip install opencv-python
+Looking in indexes: https://aws:****@mlplatform-623127157773.d.codeartifact.ap-southeast-1.amazonaws.com/pypi/sagemaker-packages/simple/
+Collecting opencv-python
+  Downloading https://mlplatform-623127157773.d.codeartifact.ap-southeast-1.amazonaws.com/pypi/sagemaker-packages/simple/opencv-python/4.12.0.88/opencv_python-4.12.0.88-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (67.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.0/67.0 MB 157.0 MB/s  0:00:00
+Collecting numpy<2.3.0,>=2 (from opencv-python)
+  Downloading https://mlplatform-623127157773.d.codeartifact.ap-southeast-1.amazonaws.com/pypi/sagemaker-packages/simple/numpy/2.2.6/numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 146.8 MB/s  0:00:00
+Successfully installed numpy-2.2.6 opencv-python-4.12.0.88
+```
+
+**Key observations:**
+- Packages downloaded from CodeArtifact URL (`mlplatform-623127157773.d.codeartifact.ap-southeast-1.amazonaws.com`)
+- Fast download speeds (157 MB/s, 146.8 MB/s) via private VPC endpoint
+- SageMaker notebook has no internet access (`direct_internet_access = "Disabled"`)
+- CodeArtifact automatically fetched packages from PyPI and cached them
 
 ## Key Benefits
 
@@ -113,7 +135,7 @@ After deployment, access your notebook via the AWS Console URL provided in the o
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `aws_region` | `ap-southeast-3` | AWS Jakarta region |
+| `aws_region` | `ap-southeast-1` | AWS Singapore region |
 | `vpc_cidr` | `10.0.0.0/16` | VPC CIDR block |
 | `sagemaker_instance_type` | `ml.t3.medium` | Notebook instance type |
 | `codeartifact_domain_name` | `mlplatform` | CodeArtifact domain |
@@ -124,7 +146,7 @@ After deployment, access your notebook via the AWS Console URL provided in the o
 Create a `terraform.tfvars` file to override defaults:
 
 ```hcl
-aws_region              = "ap-southeast-3"
+aws_region              = "ap-southeast-1"
 environment             = "prod"
 project_name            = "ml-platform"
 sagemaker_instance_type = "ml.t3.large"
