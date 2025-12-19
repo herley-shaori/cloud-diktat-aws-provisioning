@@ -153,7 +153,6 @@ resource "aws_sagemaker_notebook_instance" "main" {
   security_groups        = [aws_security_group.sagemaker.id]
   direct_internet_access = "Disabled" # No direct internet - uses VPC endpoints
   lifecycle_config_name  = aws_sagemaker_notebook_instance_lifecycle_configuration.codeartifact_pip.name
-  platform_identifier    = "notebook-al2-v2" # Amazon Linux 2
 
   # Root access required for lifecycle scripts
   root_access = "Enabled"
