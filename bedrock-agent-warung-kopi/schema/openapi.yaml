@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: Warung Kopi API
+  version: 1.0.0
+  description: API untuk warung kopi - lihat menu dan cek stok
+
+paths:
+  /menu:
+    get:
+      summary: Lihat daftar menu
+      description: Mendapatkan daftar menu minuman beserta harganya
+      operationId: getMenu
+      responses:
+        "200":
+          description: Daftar menu berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  menu:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: Nama minuman
+                        price:
+                          type: integer
+                          description: Harga dalam Rupiah
+                  currency:
+                    type: string
+                    description: Mata uang (IDR)
+
+  /stock:
+    get:
+      summary: Cek stok item
+      description: Mengecek ketersediaan stok untuk item tertentu
+      operationId: getStock
+      parameters:
+        - name: item
+          in: query
+          required: true
+          description: Nama item yang ingin dicek stoknya
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Informasi stok berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: string
+                    description: Nama item
+                  stock:
+                    type: integer
+                    description: Jumlah stok tersedia
+                  available:
+                    type: boolean
+                    description: Status ketersediaan
