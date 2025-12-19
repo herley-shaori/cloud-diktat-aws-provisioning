@@ -19,7 +19,7 @@ resource "null_resource" "upload_knowledge_data" {
 
   provisioner "local-exec" {
     command = <<-EOT
-      python3 -c '
+      .venv/Scripts/python.exe -c '
 import boto3
 import json
 
@@ -890,7 +890,7 @@ print("All knowledge base data uploaded successfully!")
   provisioner "local-exec" {
     when    = destroy
     command = <<-EOT
-      python3 -c '
+      .venv/Scripts/python.exe -c '
 import boto3
 s3 = boto3.resource("s3", region_name="${self.triggers.region}")
 bucket = s3.Bucket("${self.triggers.bucket_id}")
