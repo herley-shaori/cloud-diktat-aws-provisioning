@@ -14,6 +14,7 @@ resource "null_resource" "upload_knowledge_data" {
   triggers = {
     bucket_id    = aws_s3_bucket.knowledge_base.id
     data_version = "v1.0.0" # Change this to re-upload data
+    region       = local.region
   }
 
   provisioner "local-exec" {
@@ -891,7 +892,7 @@ print("All knowledge base data uploaded successfully!")
     command = <<-EOT
       python3 -c '
 import boto3
-s3 = boto3.resource("s3", region_name="${local.region}")
+s3 = boto3.resource("s3", region_name="${self.triggers.region}")
 bucket = s3.Bucket("${self.triggers.bucket_id}")
 bucket.object_versions.all().delete()
 bucket.objects.all().delete()
