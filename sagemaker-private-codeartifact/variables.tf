@@ -9,9 +9,9 @@
 # -----------------------------------------------------------------------------
 
 variable "aws_region" {
-  description = "AWS region for deploying resources. Jakarta region is used for data residency compliance."
+  description = "AWS region for deploying resources. Singapore region for Southeast Asia."
   type        = string
-  default     = "ap-southeast-3"
+  default     = "ap-southeast-1"
 }
 
 variable "environment" {
@@ -45,7 +45,7 @@ variable "private_subnet_cidrs" {
 variable "availability_zones" {
   description = "List of availability zones for subnet placement. Must match the number of subnet CIDRs."
   type        = list(string)
-  default     = ["ap-southeast-3a", "ap-southeast-3b"]
+  default     = ["ap-southeast-1a", "ap-southeast-1b"]
 }
 
 # -----------------------------------------------------------------------------

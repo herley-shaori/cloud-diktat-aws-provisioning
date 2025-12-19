@@ -1,8 +1,8 @@
 # =============================================================================
-# Terraform and Provider Configuration
+# Terraform Version and Required Providers
 # =============================================================================
-# This file defines the required Terraform version and AWS provider settings
-# for deploying SageMaker with CodeArtifact integration in Jakarta region.
+# This file defines the required Terraform version and provider versions.
+# Provider configuration is in provider.tf
 # =============================================================================
 
 terraform {
@@ -12,18 +12,6 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      Environment = var.environment
-      Project     = var.project_name
-      ManagedBy   = "Terraform"
     }
   }
 }
