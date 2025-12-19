@@ -52,14 +52,16 @@ resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "codeartifact
         --query repositoryEndpoint \
         --output text)
 
+    # Strip https:// prefix from URL for pip configuration
+    CODEARTIFACT_REPO_HOST=$${CODEARTIFACT_REPO_URL#https://}
+
     # Configure pip for the ec2-user (SageMaker notebook user)
     echo "Configuring pip for ec2-user..."
     sudo -u ec2-user mkdir -p /home/ec2-user/.config/pip
 
     sudo -u ec2-user tee /home/ec2-user/.config/pip/pip.conf > /dev/null <<PIPCONF
     [global]
-    index-url = https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_URL}simple/
-    trusted-host = $${CODEARTIFACT_REPO_URL%%/*}
+    index-url = https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_HOST}simple/
     PIPCONF
 
     # Also configure for root (some operations may run as root)
@@ -68,8 +70,7 @@ resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "codeartifact
 
     tee /root/.config/pip/pip.conf > /dev/null <<PIPCONF
     [global]
-    index-url = https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_URL}simple/
-    trusted-host = $${CODEARTIFACT_REPO_URL%%/*}
+    index-url = https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_HOST}simple/
     PIPCONF
 
     # Configure pip for all conda environments
@@ -81,7 +82,7 @@ resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "codeartifact
 
             # Activate environment and configure pip
             source /home/ec2-user/anaconda3/bin/activate "$env_name"
-            pip config set global.index-url "https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_URL}simple/"
+            pip config set global.index-url "https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_HOST}simple/"
             conda deactivate
         fi
     done
@@ -114,7 +115,10 @@ resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "codeartifact
         --query repositoryEndpoint \
         --output text)
 
-    pip config set global.index-url "https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_URL}simple/"
+    # Strip https:// prefix
+    CODEARTIFACT_REPO_HOST=$${CODEARTIFACT_REPO_URL#https://}
+
+    pip config set global.index-url "https://aws:$CODEARTIFACT_AUTH_TOKEN@$${CODEARTIFACT_REPO_HOST}simple/"
 
     echo "CodeArtifact pip configuration refreshed successfully!"
     REFRESHSCRIPT
