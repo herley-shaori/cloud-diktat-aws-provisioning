@@ -109,7 +109,7 @@ resource "null_resource" "create_opensearch_index" {
 
   provisioner "local-exec" {
     command = <<-EOT
-      .venv/Scripts/python.exe -c '
+      "${path.module}/.venv/Scripts/python.exe" -c '
 import boto3
 import json
 import time
