@@ -48,3 +48,21 @@ output "test_agent_command" {
       --region ${var.aws_region}
   EOT
 }
+
+# -----------------------------------------------------------------------------
+# API Gateway Outputs
+# -----------------------------------------------------------------------------
+
+output "api_endpoint" {
+  description = "API Gateway endpoint URL for testing"
+  value       = "${aws_api_gateway_stage.prod.invoke_url}/chat"
+}
+
+output "api_curl_command" {
+  description = "Sample curl command to test the API"
+  value       = <<-EOT
+    curl -X POST ${aws_api_gateway_stage.prod.invoke_url}/chat \
+      -H "Content-Type: application/json" \
+      -d '{"message": "How do I make a cappuccino?"}'
+  EOT
+}

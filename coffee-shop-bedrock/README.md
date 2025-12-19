@@ -124,6 +124,39 @@ aws bedrock-agent get-agent \
 
 ## Testing the Agent
 
+### Using API Gateway (Recommended)
+
+```bash
+# Get the API endpoint
+terraform output -raw api_endpoint
+
+# Test with curl
+curl -X POST $(terraform output -raw api_endpoint) \
+  -H "Content-Type: application/json" \
+  -d '{"message": "How do I make a cappuccino?"}'
+
+# With session persistence (for multi-turn conversations)
+curl -X POST $(terraform output -raw api_endpoint) \
+  -H "Content-Type: application/json" \
+  -d '{"message": "What about a latte?", "session_id": "my-session-123"}'
+```
+
+**Request format:**
+```json
+{
+  "message": "Your question here",
+  "session_id": "optional-session-id-for-conversation"
+}
+```
+
+**Response format:**
+```json
+{
+  "response": "AI assistant response here",
+  "session_id": "session-id-used"
+}
+```
+
 ### Using AWS CLI
 
 ```bash
@@ -200,6 +233,7 @@ coffee-shop-bedrock/
 ├── agent.tf             # Bedrock Agent configuration
 ├── guardrails.tf        # Content filtering and protection
 ├── lambda.tf            # Lambda for agent actions (inline code)
+├── api-gateway.tf       # API Gateway + Lambda proxy for testing
 ├── data-upload.tf       # Knowledge base data (inline JSON)
 └── README.md            # This file
 ```
@@ -212,6 +246,7 @@ coffee-shop-bedrock/
 | Bedrock Claude 3 Haiku | ~$0.00025/1K input tokens |
 | Bedrock Titan Embeddings | ~$0.0001/1K tokens |
 | Lambda | Free tier eligible |
+| API Gateway | ~$3.50/million requests |
 | S3 | ~$0.023/GB |
 | **Total (idle)** | **~$175/month** |
 
