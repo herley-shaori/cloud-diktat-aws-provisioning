@@ -48,7 +48,7 @@ locals {
       type         = "Interface"
     }
     sagemaker_notebook = {
-      service_name = "com.amazonaws.${local.region}.notebook"
+      service_name = "aws.sagemaker.${local.region}.notebook"
       type         = "Interface"
     }
     # CloudWatch for logging
