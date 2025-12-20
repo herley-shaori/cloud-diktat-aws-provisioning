@@ -81,6 +81,147 @@ When you ask: **"How do I make a cappuccino?"**
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+## Agentic vs Non-Agentic: What's the Difference?
+
+### Non-Agentic Approach (Traditional Chatbot)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         NON-AGENTIC IMPLEMENTATION                               │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                  │
+│  User: "Check the milk stock at sudirman"                                       │
+│                                                                                  │
+│  ┌─────────────┐                                                                │
+│  │   Your App  │  ─── You write code to: ───────────────────────────────────►  │
+│  └─────────────┘                                                                │
+│        │            1. Parse user message (regex, NLP, or keywords)             │
+│        │            2. IF message contains "stock" AND "sudirman" THEN          │
+│        │            3.    Call inventory API                                    │
+│        │            4. ELSE IF message contains "recipe" THEN                   │
+│        │            5.    Query database                                        │
+│        │            6. ELSE                                                      │
+│        │            7.    Send to LLM for generic response                      │
+│        │                                                                         │
+│        ▼                                                                         │
+│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐                       │
+│  │  Inventory  │     │   Recipe    │     │    LLM      │                       │
+│  │    API      │     │  Database   │     │  (Claude)   │                       │
+│  └─────────────┘     └─────────────┘     └─────────────┘                       │
+│                                                                                  │
+│  Problems:                                                                       │
+│  ✗ You must anticipate every possible user intent                              │
+│  ✗ Brittle routing logic (what if user says "how much milk do we have?")       │
+│  ✗ Adding new capabilities requires code changes                               │
+│  ✗ No reasoning - just pattern matching                                        │
+│  ✗ LLM only used for "fallback" responses                                      │
+│                                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Agentic Approach (This Implementation)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           AGENTIC IMPLEMENTATION                                 │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                  │
+│  User: "Check the milk stock at sudirman"                                       │
+│        "How much milk do we have at the main branch?"                           │
+│        "Is there enough milk at sudirman?"                    ──── All work!    │
+│        "Sudirman milk inventory please"                                         │
+│                                                                                  │
+│  ┌─────────────┐                                                                │
+│  │   Bedrock   │  ─── Agent automatically: ─────────────────────────────────►  │
+│  │    Agent    │                                                                │
+│  └─────────────┘                                                                │
+│        │            1. Understands intent using LLM reasoning                   │
+│        │            2. Decides which tool to use (or none)                      │
+│        │            3. Extracts parameters from natural language                │
+│        │            4. Executes the action                                       │
+│        │            5. Interprets results                                        │
+│        │            6. Generates natural language response                      │
+│        │                                                                         │
+│        ▼                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────┐   │
+│  │                      TOOLS (Agent chooses which to use)                  │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │   │
+│  │  │ checkStock  │  │ createPO    │  │ getQueue    │  │ Knowledge   │    │   │
+│  │  │  (Lambda)   │  │  (Lambda)   │  │  (Lambda)   │  │    Base     │    │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘    │   │
+│  └─────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                  │
+│  Benefits:                                                                       │
+│  ✓ Understands varied phrasings of the same intent                             │
+│  ✓ No routing logic needed - agent reasons about which tool to use             │
+│  ✓ Adding capabilities = adding tools (no code logic changes)                  │
+│  ✓ LLM is the brain, not just a fallback                                       │
+│  ✓ Can combine multiple tools in one conversation                              │
+│                                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Why This Coffee Shop Implementation is Agentic
+
+| Capability | Non-Agentic | Agentic (This Project) |
+|------------|-------------|------------------------|
+| **Intent Recognition** | Hardcoded keywords/regex | LLM understands meaning |
+| **Tool Selection** | IF-ELSE routing logic | Agent decides dynamically |
+| **Parameter Extraction** | Manual parsing | Agent extracts from natural language |
+| **Response Format** | Template strings | Natural language generation |
+| **Adding Features** | Code changes required | Just add new tool definition |
+| **Error Handling** | Try-catch per API | Agent adapts and retries |
+
+### Proof: Same Intent, Different Words
+
+All these questions trigger the **same** `checkStock` Lambda function:
+
+```
+User: "Check the milk stock at sudirman"
+      → Agent calls: checkStock(branch_id="sudirman", item_name="milk")
+
+User: "How much milk is left in the main branch?"
+      → Agent calls: checkStock(branch_id="sudirman", item_name="milk")
+
+User: "Do we need to order more milk for sudirman?"
+      → Agent calls: checkStock(branch_id="sudirman", item_name="milk")
+
+User: "Sudirman inventory for milk please"
+      → Agent calls: checkStock(branch_id="sudirman", item_name="milk")
+```
+
+**In a non-agentic system**, you would need to write regex or keyword matching for each variation. **In an agentic system**, the LLM understands the intent and maps it to the correct tool.
+
+### The Agent's Decision Process
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│  User: "We're running low on supplies at kemang, can you order more milk?"     │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                  │
+│  Agent Reasoning:                                                                │
+│  ┌───────────────────────────────────────────────────────────────────────────┐ │
+│  │ 1. User wants to order supplies                                            │ │
+│  │ 2. Location: kemang branch                                                 │ │
+│  │ 3. Item: milk                                                               │ │
+│  │ 4. I have a tool called "createPurchaseOrder" that can do this            │ │
+│  │ 5. Required parameters:                                                     │ │
+│  │    - items: "milk" ✓                                                       │ │
+│  │    - branch_id: "kemang" ✓                                                 │ │
+│  │    - supplier_id: ? (milk comes from dairy supplier = SUP002)              │ │
+│  │ 6. I will call createPurchaseOrder with these parameters                   │ │
+│  └───────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                  │
+│  Agent Action:                                                                   │
+│  → createPurchaseOrder(items="milk:10L", supplier_id="SUP002", branch="kemang")│
+│                                                                                  │
+│  Agent Response:                                                                 │
+│  "I've created purchase order PO-20251220-1234 for 10 liters of milk from      │
+│   Fresh Dairy Farm for the Kemang branch. Estimated delivery: tomorrow."       │
+│                                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
 ## Building Bedrock Agents: What You Need
 
 ### Components Required (in order of creation)
