@@ -177,14 +177,8 @@ resource "null_resource" "prepare_agent" {
   }
 
   provisioner "local-exec" {
-    command = <<-EOT
-      aws bedrock-agent prepare-agent \
-        --agent-id ${aws_bedrockagent_agent.barista_assistant.id} \
-        --region ${local.region}
-
-      echo "Waiting for agent to be prepared..."
-      sleep 30
-    EOT
+    interpreter = ["PowerShell", "-Command"]
+    command     = "aws bedrock-agent prepare-agent --agent-id ${aws_bedrockagent_agent.barista_assistant.id} --region ${local.region} --profile pribadi; Write-Host 'Waiting for agent to be prepared...'; Start-Sleep -Seconds 30"
   }
 }
 
