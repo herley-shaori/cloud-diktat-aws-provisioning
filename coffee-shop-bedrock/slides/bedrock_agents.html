@@ -15,17 +15,18 @@
             font-family: 'Segoe UI', 'Amazon Ember', Arial, sans-serif;
             background: #0d1117;
             color: #e6edf3;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .slide {
             display: none;
             width: 100vw;
-            height: 100vh;
-            padding: 60px 80px;
+            min-height: 100vh;
+            padding: 60px 80px 100px 80px;
             background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
         }
 
         .slide.active {
@@ -947,8 +948,72 @@
     </div>
 </div>
 
-<!-- Slide 10: Summary -->
+<!-- Slide 10: Demo & Trace -->
 <div class="slide" id="slide10">
+    <h1>Demo: Agent in Action + Trace</h1>
+
+    <div class="two-column" style="margin-top: 20px;">
+        <div>
+            <h3>Live Result from AWS Console</h3>
+            <div style="margin-top: 15px; border: 2px solid #00ff88; border-radius: 12px; overflow: hidden;">
+                <img src="bedrock_result.png" alt="Bedrock Agent Demo" style="width: 100%; display: block;">
+            </div>
+            <p style="margin-top: 15px; font-size: 1rem; color: #8b949e;">
+                User: "Create a purchase order for 10 liters of milk from the dairy supplier for kemang branch."
+            </p>
+        </div>
+
+        <div>
+            <h3>What is Trace?</h3>
+            <p style="margin-bottom: 20px;">
+                <span class="highlight">Trace</span> adalah fitur debugging yang menunjukkan
+                <strong>setiap langkah</strong> yang dilakukan agent saat memproses request.
+            </p>
+
+            <div class="component-grid" style="grid-template-columns: 1fr; gap: 15px;">
+                <div class="component-card">
+                    <h4 style="font-size: 1.1rem;">1. Pre-Processing Trace</h4>
+                    <p style="font-size: 0.95rem;">Guardrail memeriksa input user. Apakah ada konten berbahaya? Apakah melanggar topic restrictions?</p>
+                    <div class="code-block" style="font-size: 0.85rem; margin-top: 10px; padding: 15px;">
+"preGuardrailTrace": {
+  "action": "NONE",  <span class="comment">// Tidak diblokir</span>
+  "inputAssessments": []
+}
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h4 style="font-size: 1.1rem;">2. Routing Trace</h4>
+                    <p style="font-size: 0.95rem;">Agent memutuskan tool mana yang akan digunakan berdasarkan intent user.</p>
+                </div>
+
+                <div class="component-card">
+                    <h4 style="font-size: 1.1rem;">3. Orchestration Trace</h4>
+                    <p style="font-size: 0.95rem;">Menunjukkan reasoning agent, parameter extraction, Lambda invocation, dan response generation.</p>
+                </div>
+
+                <div class="component-card">
+                    <h4 style="font-size: 1.1rem;">4. Post-Processing Trace</h4>
+                    <p style="font-size: 0.95rem;">Guardrail memeriksa output sebelum dikirim ke user.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: rgba(0, 255, 136, 0.1); border-radius: 8px;">
+                <p style="font-size: 1rem;">
+                    <span class="highlight">Gunakan Trace untuk:</span> Debug agent behavior,
+                    optimasi prompt, analisis latency, dan audit keamanan.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="citation">
+        Source: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/trace-events.html" target="_blank">AWS Documentation - Trace events</a>
+    </div>
+</div>
+
+<!-- Slide 11: Summary -->
+<div class="slide" id="slide11">
     <h1>Key Takeaways</h1>
 
     <div class="two-column" style="margin-top: 30px;">
@@ -1013,12 +1078,12 @@
 </div>
 
 <div class="slide-counter">
-    <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+    <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
 </div>
 
 <script>
     let currentSlide = 1;
-    const totalSlides = 10;
+    const totalSlides = 11;
 
     function showSlide(n) {
         const slides = document.querySelectorAll('.slide');
