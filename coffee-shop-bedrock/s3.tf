@@ -3,7 +3,7 @@
 # =============================================================================
 
 resource "aws_s3_bucket" "knowledge_base" {
-  bucket        = "${local.name_prefix}-kb-${local.account_id}"
+  bucket        = "${local.name_prefix}-kb-${local.region}-${local.account_id}"
   force_destroy = true # Allow terraform destroy to delete bucket with objects
 
   tags = merge(local.common_tags, {

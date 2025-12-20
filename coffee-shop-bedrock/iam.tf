@@ -95,6 +95,26 @@ resource "aws_iam_role_policy" "knowledge_base_aoss" {
   })
 }
 
+resource "aws_iam_role_policy" "knowledge_base_marketplace" {
+  name = "${local.name_prefix}-kb-marketplace-policy"
+  role = aws_iam_role.knowledge_base.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "MarketplaceModelAccess"
+        Effect = "Allow"
+        Action = [
+          "aws-marketplace:ViewSubscriptions",
+          "aws-marketplace:Subscribe"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 # -----------------------------------------------------------------------------
 # Bedrock Agent Role
 # -----------------------------------------------------------------------------

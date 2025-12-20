@@ -5,7 +5,7 @@
 variable "aws_region" {
   description = "AWS region for deployment"
   type        = string
-  default     = "ap-southeast-1"
+  default     = "us-east-1"
 }
 
 variable "project_prefix" {
@@ -29,7 +29,7 @@ variable "bedrock_model_id" {
 variable "embedding_model_id" {
   description = "Bedrock embedding model ID for knowledge base"
   type        = string
-  default     = "amazon.titan-embed-text-v2:0"
+  default     = "amazon.titan-embed-text-v1"
 }
 
 variable "lambda_runtime" {

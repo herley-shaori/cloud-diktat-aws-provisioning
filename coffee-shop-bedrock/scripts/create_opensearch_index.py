@@ -37,7 +37,7 @@ index_body = {
         "properties": {
             "bedrock-knowledge-base-default-vector": {
                 "type": "knn_vector",
-                "dimension": 1024,
+                "dimension": 1536,
                 "method": {
                     "name": "hnsw",
                     "space_type": "l2",
