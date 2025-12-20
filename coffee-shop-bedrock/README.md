@@ -1,12 +1,186 @@
 # Coffee Shop AI Management System
 
-AI-powered coffee shop assistant using Amazon Bedrock services for recipe guidance, inventory management, and customer service.
+AI-powered coffee shop assistant using Amazon Bedrock Agents for recipe guidance, inventory management, and customer service.
+
+## How Bedrock Agents Work
+
+### What Happens When a Question Arrives?
+
+When you ask: **"Check the milk stock at sudirman branch"**
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           AGENTIC FLOW (Step by Step)                            │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                  │
+│  1. USER INPUT                                                                   │
+│     └─► "Check the milk stock at sudirman branch"                               │
+│                                                                                  │
+│  2. GUARDRAIL (Input Check)                                                      │
+│     └─► Scans for: harmful content, blocked topics, PII                         │
+│     └─► ✓ Passed (no policy violations)                                         │
+│                                                                                  │
+│  3. AGENT REASONING (Claude 3 Haiku)                                            │
+│     └─► Analyzes user intent                                                     │
+│     └─► Decides: "This requires checking inventory"                             │
+│     └─► Selects action: checkStock                                              │
+│     └─► Extracts parameters: branch_id="sudirman", item_name="milk"             │
+│                                                                                  │
+│  4. ACTION EXECUTION (Lambda Function)                                          │
+│     └─► Agent invokes Lambda with:                                              │
+│         {                                                                        │
+│           "function": "checkStock",                                              │
+│           "parameters": [                                                        │
+│             {"name": "branch_id", "value": "sudirman"},                         │
+│             {"name": "item_name", "value": "milk"}                              │
+│           ]                                                                      │
+│         }                                                                        │
+│     └─► Lambda returns:                                                          │
+│         {"quantity": 15, "unit": "liters", "stock_status": "OK"}                │
+│                                                                                  │
+│  5. RESPONSE GENERATION (Claude 3 Haiku)                                        │
+│     └─► Agent formats Lambda response into natural language                     │
+│     └─► "The Sudirman branch currently has 15 liters of milk..."               │
+│                                                                                  │
+│  6. GUARDRAIL (Output Check)                                                     │
+│     └─► Scans response for: PII, sensitive data, policy violations             │
+│     └─► ✓ Passed                                                                │
+│                                                                                  │
+│  7. FINAL RESPONSE                                                               │
+│     └─► "According to the inventory check, the Sudirman branch currently        │
+│          has 15 liters of milk in stock. The minimum stock level for milk       │
+│          is 5 liters, and the current stock is above the minimum."              │
+│                                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Knowledge Base Query Flow
+
+When you ask: **"How do I make a cappuccino?"**
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         KNOWLEDGE BASE FLOW (RAG)                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                  │
+│  1. USER INPUT                                                                   │
+│     └─► "How do I make a cappuccino?"                                           │
+│                                                                                  │
+│  2. AGENT REASONING                                                              │
+│     └─► Decides: "This is a recipe question, use Knowledge Base"               │
+│                                                                                  │
+│  3. KNOWLEDGE BASE RETRIEVAL                                                     │
+│     └─► Query converted to vector embedding (Titan Embeddings)                  │
+│     └─► OpenSearch Serverless searches for similar vectors                      │
+│     └─► Returns relevant chunks from drinks_menu.json                           │
+│                                                                                  │
+│  4. RESPONSE GENERATION                                                          │
+│     └─► Agent uses retrieved context to generate accurate answer                │
+│     └─► "To make a cappuccino: 1. Pull a double shot of espresso..."           │
+│                                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+## Building Bedrock Agents: What You Need
+
+### Components Required (in order of creation)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│  STEP 1: FOUNDATION MODEL ACCESS                                                 │
+│  ────────────────────────────────────────────────────────────────────────────── │
+│  • Enable model access in Bedrock console for:                                  │
+│    - Claude 3 Haiku (for agent reasoning)                                       │
+│    - Titan Embeddings V1 (for knowledge base vectors)                           │
+│                                                                                  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  STEP 2: KNOWLEDGE BASE (for RAG capabilities)                                   │
+│  ────────────────────────────────────────────────────────────────────────────── │
+│  2a. S3 Bucket                                                                   │
+│      └─► Store your knowledge documents (JSON, PDF, TXT, etc.)                  │
+│                                                                                  │
+│  2b. OpenSearch Serverless Collection                                            │
+│      └─► Vector database to store embeddings                                    │
+│      └─► Requires: encryption policy, network policy, data access policy        │
+│                                                                                  │
+│  2c. OpenSearch Index                                                            │
+│      └─► Create index with knn_vector field for embeddings                      │
+│      └─► Dimension must match embedding model (Titan V1 = 1536)                 │
+│                                                                                  │
+│  2d. Knowledge Base Resource                                                     │
+│      └─► Links S3 → Embeddings Model → OpenSearch                               │
+│      └─► IAM role with permissions for S3, Bedrock, OpenSearch                  │
+│                                                                                  │
+│  2e. Data Source + Ingestion                                                     │
+│      └─► Point to S3 bucket                                                      │
+│      └─► Run ingestion job to vectorize documents                               │
+│                                                                                  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  STEP 3: ACTION GROUP (for agentic capabilities)                                 │
+│  ────────────────────────────────────────────────────────────────────────────── │
+│  3a. Lambda Function                                                             │
+│      └─► Handles agent actions (checkStock, createPO, getQueue, etc.)           │
+│      └─► Returns structured response for agent to interpret                     │
+│                                                                                  │
+│  3b. Function Schema                                                             │
+│      └─► Define functions with name, description, parameters                    │
+│      └─► Agent uses this to understand when/how to call Lambda                  │
+│                                                                                  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  STEP 4: GUARDRAILS (optional but recommended)                                   │
+│  ────────────────────────────────────────────────────────────────────────────── │
+│  • Content filters (hate, violence, sexual, etc.)                               │
+│  • Topic restrictions (competitors, internal costs)                             │
+│  • PII protection (emails, credit cards, passwords)                             │
+│  • Word filters (profanity, competitor names)                                   │
+│                                                                                  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  STEP 5: BEDROCK AGENT                                                           │
+│  ────────────────────────────────────────────────────────────────────────────── │
+│  5a. Agent Resource                                                              │
+│      └─► Foundation model (Claude 3 Haiku)                                      │
+│      └─► System instruction (persona, guidelines, capabilities)                 │
+│      └─► Attach guardrail                                                        │
+│                                                                                  │
+│  5b. Associate Knowledge Base                                                    │
+│      └─► Link agent to knowledge base for RAG                                   │
+│                                                                                  │
+│  5c. Create Action Group                                                         │
+│      └─► Link agent to Lambda for actions                                       │
+│      └─► Define function schemas                                                 │
+│                                                                                  │
+│  5d. Prepare Agent                                                               │
+│      └─► Compiles agent configuration                                           │
+│      └─► Makes agent ready to use                                                │
+│                                                                                  │
+│  5e. Create Agent Alias                                                          │
+│      └─► Version pointer for production use                                     │
+│      └─► Required for InvokeAgent API                                           │
+│                                                                                  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  STEP 6: API LAYER (optional, for external access)                               │
+│  ────────────────────────────────────────────────────────────────────────────── │
+│  • API Gateway + Lambda proxy                                                   │
+│  • Exposes agent via REST API                                                   │
+│  • Handles streaming response from agent                                        │
+│                                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### IAM Roles Required
+
+| Role | Purpose | Key Permissions |
+|------|---------|-----------------|
+| Knowledge Base Role | Bedrock KB to access resources | s3:GetObject, bedrock:InvokeModel, aoss:APIAccessAll |
+| Agent Role | Bedrock Agent to operate | bedrock:InvokeModel, bedrock:Retrieve, bedrock:ApplyGuardrail |
+| Lambda Role | Execute agent actions | logs:*, bedrock:InvokeModel |
+| API Proxy Role | Invoke agent from API | bedrock:InvokeAgent |
 
 ## Architecture Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
-│                              AWS Cloud (ap-southeast-1)                          │
+│                              AWS Cloud (us-east-1)                               │
 │                                                                                  │
 │  ┌─────────────────────────────────────────────────────────────────────────────┐│
 │  │                           Amazon Bedrock                                     ││
@@ -119,7 +293,7 @@ terraform output
 # Check agent status
 aws bedrock-agent get-agent \
   --agent-id $(terraform output -raw agent_id) \
-  --region ap-southeast-1
+  --region us-east-1
 ```
 
 ## Testing the Agent
@@ -169,7 +343,7 @@ aws bedrock-agent-runtime invoke-agent \
   --agent-alias-id <ALIAS_ID> \
   --session-id "test-001" \
   --input-text "What drinks do you have?" \
-  --region ap-southeast-1
+  --region us-east-1
 ```
 
 ### Sample Questions to Test
@@ -217,7 +391,7 @@ aws bedrock-agent-runtime invoke-agent \
 ```bash
 aws logs tail /aws/lambda/coffee-shop-ai-agent-actions \
   --follow \
-  --region ap-southeast-1
+  --region us-east-1
 ```
 
 ## Project Structure
@@ -284,17 +458,17 @@ pip install opensearch-py requests-aws4auth
 # Verify collection is active
 aws opensearchserverless batch-get-collection \
   --names coffee-shop-ai-vectors \
-  --region ap-southeast-1
+  --region us-east-1
 ```
 
 ### Agent Not Responding
 
 ```bash
 # Check agent status
-aws bedrock-agent get-agent --agent-id <ID> --region ap-southeast-1
+aws bedrock-agent get-agent --agent-id <ID> --region us-east-1
 
 # Re-prepare agent
-aws bedrock-agent prepare-agent --agent-id <ID> --region ap-southeast-1
+aws bedrock-agent prepare-agent --agent-id <ID> --region us-east-1
 ```
 
 ### Knowledge Base Empty
@@ -304,13 +478,13 @@ aws bedrock-agent prepare-agent --agent-id <ID> --region ap-southeast-1
 aws bedrock-agent start-ingestion-job \
   --knowledge-base-id <KB_ID> \
   --data-source-id <DS_ID> \
-  --region ap-southeast-1
+  --region us-east-1
 
 # Check ingestion status
 aws bedrock-agent list-ingestion-jobs \
   --knowledge-base-id <KB_ID> \
   --data-source-id <DS_ID> \
-  --region ap-southeast-1
+  --region us-east-1
 ```
 
 ### Lambda Errors
@@ -319,7 +493,7 @@ aws bedrock-agent list-ingestion-jobs \
 # View recent logs
 aws logs tail /aws/lambda/coffee-shop-ai-agent-actions \
   --since 1h \
-  --region ap-southeast-1
+  --region us-east-1
 ```
 
 ## Architecture Decisions
