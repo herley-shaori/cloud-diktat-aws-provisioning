@@ -966,17 +966,17 @@
         <div>
             <h3>What is Trace?</h3>
             <p style="margin-bottom: 20px;">
-                <span class="highlight">Trace</span> adalah fitur debugging yang menunjukkan
-                <strong>setiap langkah</strong> yang dilakukan agent saat memproses request.
+                <span class="highlight">Trace</span> is a debugging feature that shows
+                <strong>every step</strong> the agent takes when processing a request.
             </p>
 
             <div class="component-grid" style="grid-template-columns: 1fr; gap: 15px;">
                 <div class="component-card">
                     <h4 style="font-size: 1.1rem;">1. Pre-Processing Trace</h4>
-                    <p style="font-size: 0.95rem;">Guardrail memeriksa input user. Apakah ada konten berbahaya? Apakah melanggar topic restrictions?</p>
+                    <p style="font-size: 0.95rem;">Guardrail checks user input. Is there harmful content? Does it violate topic restrictions?</p>
                     <div class="code-block" style="font-size: 0.85rem; margin-top: 10px; padding: 15px;">
 "preGuardrailTrace": {
-  "action": "NONE",  <span class="comment">// Tidak diblokir</span>
+  "action": "NONE",  <span class="comment">// Not blocked</span>
   "inputAssessments": []
 }
                     </div>
@@ -984,24 +984,24 @@
 
                 <div class="component-card">
                     <h4 style="font-size: 1.1rem;">2. Routing Trace</h4>
-                    <p style="font-size: 0.95rem;">Agent memutuskan tool mana yang akan digunakan berdasarkan intent user.</p>
+                    <p style="font-size: 0.95rem;">Agent decides which tool to use based on user intent.</p>
                 </div>
 
                 <div class="component-card">
                     <h4 style="font-size: 1.1rem;">3. Orchestration Trace</h4>
-                    <p style="font-size: 0.95rem;">Menunjukkan reasoning agent, parameter extraction, Lambda invocation, dan response generation.</p>
+                    <p style="font-size: 0.95rem;">Shows agent reasoning, parameter extraction, Lambda invocation, and response generation.</p>
                 </div>
 
                 <div class="component-card">
                     <h4 style="font-size: 1.1rem;">4. Post-Processing Trace</h4>
-                    <p style="font-size: 0.95rem;">Guardrail memeriksa output sebelum dikirim ke user.</p>
+                    <p style="font-size: 0.95rem;">Guardrail checks output before sending to user.</p>
                 </div>
             </div>
 
             <div style="margin-top: 20px; padding: 15px; background: rgba(0, 255, 136, 0.1); border-radius: 8px;">
                 <p style="font-size: 1rem;">
-                    <span class="highlight">Gunakan Trace untuk:</span> Debug agent behavior,
-                    optimasi prompt, analisis latency, dan audit keamanan.
+                    <span class="highlight">Use Trace for:</span> Debug agent behavior,
+                    prompt optimization, latency analysis, and security auditing.
                 </p>
             </div>
         </div>
