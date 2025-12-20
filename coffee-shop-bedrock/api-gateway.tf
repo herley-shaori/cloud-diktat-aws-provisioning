@@ -165,8 +165,7 @@ resource "aws_iam_role_policy" "api_proxy_bedrock" {
           "bedrock:InvokeAgent"
         ]
         Resource = [
-          aws_bedrockagent_agent.barista_assistant.agent_arn,
-          "${aws_bedrockagent_agent.barista_assistant.agent_arn}/*"
+          aws_bedrockagent_agent_alias.barista_assistant.agent_alias_arn
         ]
       }
     ]
